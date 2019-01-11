@@ -1,14 +1,14 @@
 //
-//  CountriesView.swift
+//  Country.swift
 //  WeatherAPI
 //
 //  Created by Mosin Dmitry on 10.01.2019.
 //  Copyright © 2019 IDAP. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class CountriesView: UIView {
-
-    @IBOutlet var countriesTable: UITableView?
+struct Country {
+    
+    public let name: String
 }
