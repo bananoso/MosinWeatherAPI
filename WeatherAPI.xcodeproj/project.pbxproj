@@ -46,6 +46,7 @@
 		3F838A1021E741E50065930A /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F838A0E21E741E50065930A /* CountriesViewController.swift */; };
 		3F838A1121E741E50065930A /* CountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F838A0F21E741E50065930A /* CountriesViewController.xib */; };
 		3F838A1321E7420A0065930A /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F838A1221E7420A0065930A /* CountriesView.swift */; };
+		3FF9CAD821EE286D00440EB7 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CAD721EE286C00440EB7 /* Weather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		3F838A0E21E741E50065930A /* CountriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
 		3F838A0F21E741E50065930A /* CountriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountriesViewController.xib; sourceTree = "<group>"; };
 		3F838A1221E7420A0065930A /* CountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesView.swift; sourceTree = "<group>"; };
+		3FF9CAD721EE286C00440EB7 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		3F110CC321E7852300F11089 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3FF9CAD721EE286C00440EB7 /* Weather.swift */,
 				3F110CC421E7856400F11089 /* Country.swift */,
 				3F110CC621E785B100F11089 /* Countries.swift */,
 			);
@@ -393,6 +396,7 @@
 				3F1CC2F321E61C84001F9AFE /* ObservableObject.Observer.swift in Sources */,
 				3F110CC521E7856400F11089 /* Country.swift in Sources */,
 				3F1CC2F821E61C84001F9AFE /* CancellableProperty.swift in Sources */,
+				3FF9CAD821EE286D00440EB7 /* Weather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
