@@ -15,6 +15,10 @@ enum F {
     typealias Predicate<Value> = (Value) -> Bool
 }
 
+func toString(_ cls: AnyClass) -> String {
+    return String(describing: cls)
+}
+
 func when<Result>(_ condition: Bool, execute: () -> Result?) -> Result? {
     return condition ? execute() : nil
 }
