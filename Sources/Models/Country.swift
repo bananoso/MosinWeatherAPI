@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Country {
+struct Country: Decodable {
     
     public let name: String
+    public let capital: String
 }

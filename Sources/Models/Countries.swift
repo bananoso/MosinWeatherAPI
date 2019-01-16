@@ -12,7 +12,7 @@ class Countries {
     
     public private(set) var values: [Country]
     
-    public init(values: [Country]) {
+    public init(_ values: [Country] = []) {
         self.values = values
     }
 }

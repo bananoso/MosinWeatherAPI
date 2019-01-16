@@ -10,19 +10,11 @@ import UIKit
 
 class CountryViewCell: TableViewCell {
 
-    @IBOutlet var label1: UILabel?
-    @IBOutlet var label2: UILabel?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+    @IBOutlet var labelCountry: UILabel?
+    @IBOutlet var labelCapital: UILabel?
     
     func fillWithModel(_ country: Country){
-        self.label1?.text = country.name
+        self.labelCountry?.text = country.name
+        self.labelCapital?.text = country.capital
     }
-    
 }
