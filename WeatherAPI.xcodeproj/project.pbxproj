@@ -153,7 +153,6 @@
 		3F1CC2BD21E61AEB001F9AFE /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				3FF9CAD921EE28CB00440EB7 /* Classes */,
 				3F110CC321E7852300F11089 /* Models */,
 				3F838A0C21E741090065930A /* UI */,
 				3F1CC2BE21E61AEB001F9AFE /* AppDelegate.swift */,
@@ -168,6 +167,7 @@
 		3F1CC2D021E61C84001F9AFE /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				3FF9CAD921EE28CB00440EB7 /* Classes */,
 				3F1CC2D121E61C84001F9AFE /* Types */,
 				3F1CC2DF21E61C84001F9AFE /* Mixin */,
 				3F1CC2E121E61C84001F9AFE /* Extensions */,

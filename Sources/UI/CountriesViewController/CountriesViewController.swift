@@ -64,9 +64,9 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.deselectRow(at: indexPath, animated: true)
         
         let cell = tableView.cellForRow(at: indexPath) as? CountryViewCell
-//        let controller = WeatherViewController()
-//        controller.city = cell?.labelCapital?.text ?? ""
+        let controller = WeatherViewController()
+        controller.city = cell?.labelCapital?.text ?? ""
 
-//        self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
