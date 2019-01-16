@@ -18,9 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     )
         -> Bool
-    {        
+    {
+        let navigationController = UINavigationController(rootViewController: CountriesViewController())
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = CountriesViewController()
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
         self.window = window
