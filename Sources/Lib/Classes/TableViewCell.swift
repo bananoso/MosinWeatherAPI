@@ -11,6 +11,6 @@ import UIKit
 class TableViewCell: UITableViewCell {
     
     override var reuseIdentifier: String? {
-        return String(describing: self)
+        return toString(type(of: self))
     }
 }

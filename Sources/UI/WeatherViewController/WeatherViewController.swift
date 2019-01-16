@@ -8,6 +8,18 @@
 
 import UIKit
 
+fileprivate struct Constant {
+    
+    static let celsius = "℃"
+    static let loading = "Loading"
+    
+    static let query: (String) -> String = {
+        return "https://api.openweathermap.org/data/2.5/weather?q="
+            + $0
+            + "&units=metric&appid=5372fc075a669c8e7a76effda37c5eb5"
+    }
+}
+
 class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
@@ -17,28 +29,25 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.prepareTextLabels()
+        self.prepareWeatherInfo()
+    }
+    
+    private func prepareTextLabels() {
         self.rootView?.cityLabel?.text = self.city
-        self.rootView?.temperatureLabel?.text = "Loading"
-        
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q="
-            + self.city
-            + "&units=metric&appid=5372fc075a669c8e7a76effda37c5eb5"
-        
-        urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed).do {
-            URL(string: $0).do {
-                let parser = NetworkManager<Weather>()
-                parser.loadData(url: $0)
-                parser.observer {
-                    switch $0 {
-                    case .notLoaded: return
-                    case .didStartLoading: return
-                    case .didLoad:
-                        DispatchQueue.main.async {
-                            self.rootView?.temperatureLabel?.text = String((parser.model?.main.temp)!)
-                        }
-                    case .didFailedWithError(let error): print(error)
-                    }
-                }
+        self.rootView?.temperatureLabel?.text = Constant.loading
+    }
+    
+    private func prepareWeatherInfo() {
+        URL(query: Constant.query(self.city)).do {
+            NetworkManager<Weather>().loadData(url: $0, completion: self.handleWeather)
+        }
+    }
+    
+    private func handleWeather(_ weather: Weather?) {
+        weather.do { data in
+            DispatchQueue.main.async {
+                self.rootView?.temperatureLabel?.text = data.main.temp.description + Constant.celsius
             }
         }
     }

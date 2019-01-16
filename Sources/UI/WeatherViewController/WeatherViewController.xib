@@ -19,22 +19,26 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHN-ZD-65q" userLabel="City">
-                    <rect key="frame" x="16" y="156" width="160" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kT5-UN-iif" userLabel="Temperature">
+                    <rect key="frame" x="18" y="296" width="339" height="76"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="64"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kT5-UN-iif" userLabel="Temperature">
-                    <rect key="frame" x="194" y="156" width="165" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHN-ZD-65q" userLabel="City">
+                    <rect key="frame" x="167" y="266" width="42" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kT5-UN-iif" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="75B-HM-QQi"/>
+                <constraint firstItem="gHN-ZD-65q" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DxL-MX-Nyl"/>
+                <constraint firstItem="kT5-UN-iif" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lzc-kO-vUw"/>
+                <constraint firstItem="kT5-UN-iif" firstAttribute="top" secondItem="gHN-ZD-65q" secondAttribute="bottom" id="ssP-B5-AJN"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <connections>
                 <outlet property="cityLabel" destination="gHN-ZD-65q" id="K4f-U4-pCl"/>

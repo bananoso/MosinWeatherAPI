@@ -8,6 +8,12 @@
 
 import UIKit
 
+fileprivate struct Constant {
+    
+    static let query = "https://restcountries.eu/rest/v2/all"
+    static let errorLoadingCity = "Error loading city"
+}
+
 class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
     
     typealias RootView = CountriesView
@@ -23,20 +29,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        URL(string: "https://restcountries.eu/rest/v2/all").do {
-            let parser = NetworkManager<[Country]>()
-            parser.loadData(url: $0)
-            parser.observer {
-                switch $0 {
-                case .notLoaded: return
-                case .didStartLoading: return
-                case .didLoad: self.model = Countries(parser.model!)
-                case .didFailedWithError(let error): print(error)
-                }
-            }
-        }
-        
-        self.rootView?.countriesTable?.reloadData()
+        self.prepareTableView()
+        self.prepareCountriesInfo()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,20 +38,11 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellClass = CountryViewCell.self
-
-        let getCell: () -> CountryViewCell? = {
-            let nib = UINib(cellClass)
-            let cells = nib.instantiate(withOwner: nil, options: nil) as? [CountryViewCell]
-            let cell = cells?.first
-            cell?.fillWithModel(self.model.values[indexPath.row])
-
-            return cell
-        }
-
-        let cell = cast(tableView.dequeueReusableCell(withCellClass: cellClass)) ?? getCell()
-
-        return cell!
+        let reusableCell = tableView.dequeueReusableCell(withCellClass: CountryViewCell.self)
+        let cell = cast(reusableCell) ?? CountryViewCell()
+        cell.fillWithModel(self.model.values[indexPath.row])
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -65,8 +50,27 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         let cell = tableView.cellForRow(at: indexPath) as? CountryViewCell
         let controller = WeatherViewController()
-        controller.city = cell?.labelCapital?.text ?? ""
+        controller.city = cell?.labelCapital?.text ?? Constant.errorLoadingCity
 
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func prepareTableView() {
+        self.rootView?.countriesTable.do {
+            $0.register(CountryViewCell.self)
+            $0.dataSource = self
+            $0.delegate = self
+        }
+    }
+    
+    private func prepareCountriesInfo() {
+        URL(string: Constant.query).do {
+            NetworkManager<[Country]>().loadData(url: $0) { data in
+                data.do {
+                    let countriesWithCapital = $0.filter { !$0.capital.isEmpty }
+                    self.model = Countries(countriesWithCapital)
+                }
+            }
+        }
     }
 }
