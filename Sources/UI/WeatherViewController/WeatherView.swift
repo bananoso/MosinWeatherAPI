@@ -10,4 +10,6 @@ import UIKit
 
 class WeatherView: UIView {
 
+    @IBOutlet var cityLabel: UILabel?
+    @IBOutlet var temperatureLabel: UILabel?
 }
