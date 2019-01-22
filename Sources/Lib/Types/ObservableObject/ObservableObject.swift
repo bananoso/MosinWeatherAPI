@@ -21,7 +21,7 @@ class ObservableObject<Property> {
         return observer
     }
     
-    public func notify(property: Property) {
+    public func notify(_ property: Property) {
         self.observers.notify(property: property)
     }
 }
