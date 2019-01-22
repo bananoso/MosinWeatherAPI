@@ -10,6 +10,15 @@ import UIKit
 
 class WeatherView: UIView {
 
-    @IBOutlet var cityLabel: UILabel?
+    @IBOutlet var capitalLabel: UILabel?
     @IBOutlet var temperatureLabel: UILabel?
+    
+    func fill(with countryData: CountryData) {
+        self.capitalLabel?.text = countryData.country.capital
+        countryData.weather.do(self.fill)
+    }
+    
+    func fill(with weather: Weather) {
+        self.temperatureLabel?.text = weather.main.celsiusString
+    }
 }
