@@ -11,6 +11,6 @@ import Foundation
 extension JSONDecoder {
     
     public enum DecoddingError: Error {
-        case invalidModel
+        case modelParsingError
     }
 }

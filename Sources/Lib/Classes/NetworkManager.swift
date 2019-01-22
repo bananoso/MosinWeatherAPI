@@ -11,33 +11,32 @@ import Foundation
 class NetworkManager<Model: Decodable>: ObservableObject<NetworkManager.State> {
     
     public enum State {
-        case notLoaded
         case didStartLoading
         case didLoad
         case didFailedWithError(_ error: Error)
     }
     
-    private(set) var state: State = .notLoaded {
-        didSet {
-            self.notify(property: self.state)
+    public func loadData(query: String, completion: F.Completion<Model?>? = nil) {
+        URL(query: query).do {
+            self.loadData(url: $0, completion: completion)
         }
     }
     
-    func loadData(url: URL, completion: F.Completion<Model?>? = nil) {
-        self.state = .didStartLoading
+    public func loadData(url: URL, completion: F.Completion<Model?>? = nil) {
+        self.notify(.didStartLoading)
         
         URLSession.shared.resumeDataTask(with: url) { data, response, error in
             error.ifNil { self.load(data: data, completion: completion) }
-                .map { self.state = .didFailedWithError($0) }
+                .map { self.notify(.didFailedWithError($0)) }
         }
     }
     
     private func load(data: Data?, completion: F.Completion<Model?>?) {
         data.flatMap { try? JSONDecoder().decode(Model.self, from: $0) }
-            .ifNil { self.state = .didFailedWithError(JSONDecoder.DecoddingError.invalidModel) }
+            .ifNil { self.notify(.didFailedWithError(JSONDecoder.DecoddingError.modelParsingError)) }
             .map {
                 completion?($0)
-                self.state = .didLoad
+                self.notify(.didLoad)
             }
     }
 }
