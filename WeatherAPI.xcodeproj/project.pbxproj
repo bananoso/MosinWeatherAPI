@@ -50,6 +50,9 @@
 		3F838A1021E741E50065930A /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F838A0E21E741E50065930A /* CountriesViewController.swift */; };
 		3F838A1121E741E50065930A /* CountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F838A0F21E741E50065930A /* CountriesViewController.xib */; };
 		3F838A1321E7420A0065930A /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F838A1221E7420A0065930A /* CountriesView.swift */; };
+		3F86EC2521F6001000280511 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86EC2421F6001000280511 /* DateFormatter+Extensions.swift */; };
+		3F86EC2721F613E100280511 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86EC2621F613E100280511 /* Date+Extensions.swift */; };
+		3FC1A68A21F0B00100468395 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1A68921F0B00100468395 /* Double+Extensions.swift */; };
 		3FF9CAD821EE286D00440EB7 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CAD721EE286C00440EB7 /* Weather.swift */; };
 		3FF9CADD21EE293400440EB7 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CADC21EE293400440EB7 /* URLSession+Extensions.swift */; };
 		3FF9CADF21EE296000440EB7 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CADE21EE296000440EB7 /* JSONDecoder+Extensions.swift */; };
@@ -101,6 +104,9 @@
 		3F838A0E21E741E50065930A /* CountriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
 		3F838A0F21E741E50065930A /* CountriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountriesViewController.xib; sourceTree = "<group>"; };
 		3F838A1221E7420A0065930A /* CountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesView.swift; sourceTree = "<group>"; };
+		3F86EC2421F6001000280511 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
+		3F86EC2621F613E100280511 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		3FC1A68921F0B00100468395 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		3FF9CAD721EE286C00440EB7 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		3FF9CADC21EE293400440EB7 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
 		3FF9CADE21EE296000440EB7 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
@@ -253,6 +259,7 @@
 		3F1CC2E621E61C84001F9AFE /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				3F86EC2621F613E100280511 /* Date+Extensions.swift */,
 				3FF9CADC21EE293400440EB7 /* URLSession+Extensions.swift */,
 				3F1CC2E721E61C84001F9AFE /* DispatchQueue+Extensions.swift */,
 				3F1CC2E821E61C84001F9AFE /* RangeReplaceableCollection+Extension.swift */,
@@ -263,6 +270,8 @@
 				3F1CC2ED21E61C84001F9AFE /* Strideable+Extensions.swift */,
 				3FF9CADE21EE296000440EB7 /* JSONDecoder+Extensions.swift */,
 				3F6D7EA421EF5CC6000F0367 /* URL+Extensions.swift */,
+				3FC1A68921F0B00100468395 /* Double+Extensions.swift */,
+				3F86EC2421F6001000280511 /* DateFormatter+Extensions.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -389,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F6D7EA221EF1E03000F0367 /* UINib+Extensions.swift in Sources */,
+				3F86EC2721F613E100280511 /* Date+Extensions.swift in Sources */,
 				3F1CC30621E61C84001F9AFE /* Weakifiable.swift in Sources */,
 				3F3F062921E74E44002571A7 /* UIColor+Extensions.swift in Sources */,
 				3F6D7E9E21EF1B97000F0367 /* NetworkManager.swift in Sources */,
@@ -404,6 +414,7 @@
 				3F1CC2FD21E61C84001F9AFE /* CGRect+Extensions.swift in Sources */,
 				3F1CC2FE21E61C84001F9AFE /* UIView+Extensions.swift in Sources */,
 				3F1CC2FF21E61C84001F9AFE /* DispatchQueue+Extensions.swift in Sources */,
+				3F86EC2521F6001000280511 /* DateFormatter+Extensions.swift in Sources */,
 				3F1CC30121E61C84001F9AFE /* DispatchTime+Extensions.swift in Sources */,
 				3F1CC30521E61C84001F9AFE /* Strideable+Extensions.swift in Sources */,
 				3FF9CADF21EE296000440EB7 /* JSONDecoder+Extensions.swift in Sources */,
@@ -418,6 +429,7 @@
 				3F3F062321E74733002571A7 /* WeatherView.swift in Sources */,
 				3F1CC2F221E61C84001F9AFE /* ObservableObject.swift in Sources */,
 				3FF9CADD21EE293400440EB7 /* URLSession+Extensions.swift in Sources */,
+				3FC1A68A21F0B00100468395 /* Double+Extensions.swift in Sources */,
 				3F1CC2F121E61C84001F9AFE /* ObservableObject.Observers.swift in Sources */,
 				3F1CC30321E61C84001F9AFE /* NSLocking+Extensions.swift in Sources */,
 				3F1CC2BF21E61AEB001F9AFE /* AppDelegate.swift in Sources */,

@@ -10,11 +10,16 @@ import UIKit
 
 class CountryViewCell: TableViewCell {
 
-    @IBOutlet var labelCountry: UILabel?
-    @IBOutlet var labelCapital: UILabel?
+    @IBOutlet var countryLabel: UILabel?
+    @IBOutlet var capitalLabel: UILabel?
+    @IBOutlet var temperaturelLabel: UILabel?
+    @IBOutlet var dateLabel: UILabel?
     
-    func fillWithModel(_ country: Country){
-        self.labelCountry?.text = country.name
-        self.labelCapital?.text = country.capital
+    func fillWithModel(_ data: CountryData){
+        self.countryLabel?.text = data.country.name
+        self.capitalLabel?.text = data.country.capital
+        
+        self.temperaturelLabel?.text = data.weather?.main.celsiusString ?? ""
+        self.dateLabel?.text = data.weather?.updateDate.formattedTime(style: .short) ?? ""
     }
 }
