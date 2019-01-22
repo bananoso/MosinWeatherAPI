@@ -9,9 +9,9 @@
 import Foundation
 
 class CountryData {
-    
-    public let country: Country
+
     public var weather: Weather?
+    public let country: Country
     
     init(country: Country, weather: Weather?) {
         self.country = country

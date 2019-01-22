@@ -14,11 +14,16 @@ extension UITableView {
         self.register(UINib(cellClass), forCellReuseIdentifier: toString(cellClass))
     }
     
-    func dequeueReusableCell(withCellClass cellClass: AnyClass) -> UITableViewCell? {
-        return self.dequeueReusableCell(withIdentifier: toString(cellClass))
+    func dequeueReusableCell<Cell: UITableViewCell>(withCellClass cellClass: Cell.Type) -> Cell? {
+        return cast(self.dequeueReusableCell(withIdentifier: toString(cellClass)))
     }
     
-    func dequeueReusableCell(withCellClass cellClass: AnyClass, for indexPath: IndexPath) -> UITableViewCell {
-        return self.dequeueReusableCell(withIdentifier: toString(cellClass), for: indexPath)
+    func dequeueReusableCell<Cell: UITableViewCell>(
+        withCellClass cellClass: Cell.Type,
+        for indexPath: IndexPath
+    )
+        -> Cell?
+    {
+        return cast(self.dequeueReusableCell(withIdentifier: toString(cellClass), for: indexPath))
     }
 }

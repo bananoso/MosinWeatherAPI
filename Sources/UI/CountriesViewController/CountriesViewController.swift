@@ -8,24 +8,23 @@
 
 import UIKit
 
-fileprivate struct Constant {
+fileprivate struct Strings {
     
     static let query = "https://restcountries.eu/rest/v2/all"
-    static let errorLoadingCity = "Error loading city"
 }
 
 class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
     
     typealias RootView = CountriesView
     
-    var model = Countries() {
+    var model = [CountryData]() {
         didSet {
             DispatchQueue.main.async {
                 self.rootView?.countriesTable?.reloadData()
             }
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,23 +33,30 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.values.count
+        return self.model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reusableCell = tableView.dequeueReusableCell(withCellClass: CountryViewCell.self)
-        let cell = cast(reusableCell) ?? CountryViewCell()
-        cell.fillWithModel(self.model.values[indexPath.row])
+        let cell = reusableCell ?? CountryViewCell()
+        cell.fillWithModel(self.model[indexPath.row])
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let cell = tableView.cellForRow(at: indexPath) as? CountryViewCell
+    
         let controller = WeatherViewController()
-        controller.city = cell?.labelCapital?.text ?? Constant.errorLoadingCity
+        controller.onDownloadedWeatherHandler = { [weak self] weather in
+            self?.model[indexPath.row].weather = weather
+            
+            DispatchQueue.main.async {
+                self?.rootView?.countriesTable?.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
+        
+        controller.countryData = self.model[indexPath.row]
 
         self.navigationController?.pushViewController(controller, animated: true)
     }
@@ -64,12 +70,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     private func prepareCountriesInfo() {
-        URL(string: Constant.query).do {
-            NetworkManager<[Country]>().loadData(url: $0) { data in
-                data.do {
-                    let countriesWithCapital = $0.filter { !$0.capital.isEmpty }
-                    self.model = Countries(countriesWithCapital)
-                }
+        NetworkManager<[Country]>().loadData(query: Strings.query) {
+            $0.do {
+                self.model = $0.filter { !$0.capital.isEmpty }
+                    .map(CountryData.init)
             }
         }
     }
