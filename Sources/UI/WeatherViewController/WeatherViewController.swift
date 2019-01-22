@@ -8,10 +8,9 @@
 
 import UIKit
 
-fileprivate struct Constant {
+fileprivate struct Strings {
     
-    static let celsius = "℃"
-    static let loading = "Loading"
+    static let loadingError = "Loading error"
     
     static let query: (String) -> String = {
         return "https://api.openweathermap.org/data/2.5/weather?q="
@@ -23,31 +22,29 @@ fileprivate struct Constant {
 class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
+    typealias WeatherDataHandler = F.Completion<Weather?>
     
-    public var city = ""
+    private var capitalTitle: String {
+        return self.countryData?.country.capital ?? Strings.loadingError
+    }
     
+    public var onDownloadedWeatherHandler: WeatherDataHandler?
+    public var countryData: CountryData?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.prepareTextLabels()
-        self.prepareWeatherInfo()
+        self.countryData.apply(self.rootView?.fill)
+        self.loadWeatherData()
     }
     
-    private func prepareTextLabels() {
-        self.rootView?.cityLabel?.text = self.city
-        self.rootView?.temperatureLabel?.text = Constant.loading
-    }
-    
-    private func prepareWeatherInfo() {
-        URL(query: Constant.query(self.city)).do {
-            NetworkManager<Weather>().loadData(url: $0, completion: self.handleWeather)
-        }
-    }
-    
-    private func handleWeather(_ weather: Weather?) {
-        weather.do { data in
-            DispatchQueue.main.async {
-                self.rootView?.temperatureLabel?.text = data.main.temp.description + Constant.celsius
+    private func loadWeatherData() {
+        NetworkManager<Weather>().loadData(query: Strings.query(self.capitalTitle)) {
+            self.onDownloadedWeatherHandler?($0)
+            $0.do { data in
+                DispatchQueue.main.async {
+                    self.rootView?.fill(with: data)
+                }
             }
         }
     }
