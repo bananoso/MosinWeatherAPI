@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F110CC521E7856400F11089 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F110CC421E7856400F11089 /* Country.swift */; };
-		3F110CC721E785B100F11089 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F110CC621E785B100F11089 /* Countries.swift */; };
+		3F110CC721E785B100F11089 /* CountryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F110CC621E785B100F11089 /* CountryData.swift */; };
 		3F110CCF21E78F3600F11089 /* CountryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F110CCD21E78F3600F11089 /* CountryViewCell.swift */; };
 		3F110CD021E78F3600F11089 /* CountryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F110CCE21E78F3600F11089 /* CountryViewCell.xib */; };
 		3F1CC2BF21E61AEB001F9AFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CC2BE21E61AEB001F9AFE /* AppDelegate.swift */; };
@@ -57,7 +57,7 @@
 
 /* Begin PBXFileReference section */
 		3F110CC421E7856400F11089 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
-		3F110CC621E785B100F11089 /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
+		3F110CC621E785B100F11089 /* CountryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryData.swift; sourceTree = "<group>"; };
 		3F110CCD21E78F3600F11089 /* CountryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewCell.swift; sourceTree = "<group>"; };
 		3F110CCE21E78F3600F11089 /* CountryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryViewCell.xib; sourceTree = "<group>"; };
 		3F1CC2BB21E61AEB001F9AFE /* WeatherAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,7 +122,7 @@
 			children = (
 				3FF9CAD721EE286C00440EB7 /* Weather.swift */,
 				3F110CC421E7856400F11089 /* Country.swift */,
-				3F110CC621E785B100F11089 /* Countries.swift */,
+				3F110CC621E785B100F11089 /* CountryData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -396,7 +396,7 @@
 				3F1CC2F521E61C84001F9AFE /* F.swift in Sources */,
 				3F1CC30221E61C84001F9AFE /* Timer+Extensions.swift in Sources */,
 				3F1CC2F921E61C84001F9AFE /* CompositCancellableProperty.swift in Sources */,
-				3F110CC721E785B100F11089 /* Countries.swift in Sources */,
+				3F110CC721E785B100F11089 /* CountryData.swift in Sources */,
 				3F1CC2F721E61C84001F9AFE /* Atomic.swift in Sources */,
 				3F1CC2FB21E61C84001F9AFE /* Weak.swift in Sources */,
 				3F1CC30021E61C84001F9AFE /* RangeReplaceableCollection+Extension.swift in Sources */,
