@@ -47,6 +47,7 @@
 		3F698DAB220085A3008D321E /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DAA220085A3008D321E /* Wrapper.swift */; };
 		3F698DAD22008652008D321E /* CountriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DAC22008652008D321E /* CountriesData.swift */; };
 		3F698DAF2200926D008D321E /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DAE2200926D008D321E /* RequestService.swift */; };
+		3F698DB422009502008D321E /* CountryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DB322009502008D321E /* CountryManager.swift */; };
 		3F6D7E9F21EF1B97000F0367 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7E9D21EF1B97000F0367 /* TableViewCell.swift */; };
 		3F6D7EA221EF1E03000F0367 /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7EA021EF1E03000F0367 /* UINib+Extensions.swift */; };
 		3F6D7EA321EF1E03000F0367 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7EA121EF1E03000F0367 /* UITableView+Extensions.swift */; };
@@ -105,6 +106,7 @@
 		3F698DAA220085A3008D321E /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
 		3F698DAC22008652008D321E /* CountriesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesData.swift; sourceTree = "<group>"; };
 		3F698DAE2200926D008D321E /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
+		3F698DB322009502008D321E /* CountryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryManager.swift; sourceTree = "<group>"; };
 		3F6D7E9D21EF1B97000F0367 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		3F6D7EA021EF1E03000F0367 /* UINib+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
 		3F6D7EA121EF1E03000F0367 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 		3F1CC2BD21E61AEB001F9AFE /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3F698DB0220094D6008D321E /* Classes */,
 				3F110CC321E7852300F11089 /* Models */,
 				3F838A0C21E741090065930A /* UI */,
 				3F0591DA21F9AF090049C2E8 /* Resources */,
@@ -331,6 +334,14 @@
 			path = Country;
 			sourceTree = "<group>";
 		};
+		3F698DB0220094D6008D321E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3F698DB322009502008D321E /* CountryManager.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		3F838A0C21E741090065930A /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +462,7 @@
 				3F838A1321E7420A0065930A /* CountriesView.swift in Sources */,
 				3F1CC2FD21E61C84001F9AFE /* CGRect+Extensions.swift in Sources */,
 				3F1CC2FE21E61C84001F9AFE /* UIView+Extensions.swift in Sources */,
+				3F698DB422009502008D321E /* CountryManager.swift in Sources */,
 				3F1CC2FF21E61C84001F9AFE /* DispatchQueue+Extensions.swift in Sources */,
 				3F86EC2521F6001000280511 /* DateFormatter+Extensions.swift in Sources */,
 				3F1CC30121E61C84001F9AFE /* DispatchTime+Extensions.swift in Sources */,
