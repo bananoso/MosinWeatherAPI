@@ -8,23 +8,22 @@
 
 import UIKit
 
-fileprivate struct Strings {
-    
-    static let query = "https://restcountries.eu/rest/v2/all"
-}
-
 class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
     
     typealias RootView = CountriesView
     
-    var model = [CountryData]() {
+    var model = CountriesData() {
         didSet {
-            DispatchQueue.main.async {
-                self.rootView?.countriesTable?.reloadData()
-            }
+            dispatchOnMain(self.countriesTable?.reloadData)
         }
     }
+    
+    private var countriesTable: UITableView? {
+        return self.rootView?.countriesTable
+    }
 
+    private var selectedIndexPath: IndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,48 +32,41 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.count
+        return self.model.values.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reusableCell = tableView.dequeueReusableCell(withCellClass: CountryViewCell.self)
-        let cell = reusableCell ?? CountryViewCell()
-        cell.fillWithModel(self.model[indexPath.row])
-        
-        return cell
+        return tableView.dequeueReusableCell(withCellClass: CountryViewCell.self) {
+            $0.fill(with: self.model.values[indexPath.row])
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    
-        let controller = WeatherViewController()
-        controller.onDownloadedWeatherHandler = { [weak self] weather in
-            self?.model[indexPath.row].weather = weather
-            
-            DispatchQueue.main.async {
-                self?.rootView?.countriesTable?.reloadRows(at: [indexPath], with: .automatic)
-            }
-        }
+        self.selectedIndexPath = indexPath
         
-        controller.countryData = self.model[indexPath.row]
+        let controller = WeatherViewController()
+        controller.countryData = self.model.values[indexPath.row]
 
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
     private func prepareTableView() {
-        self.rootView?.countriesTable.do {
-            $0.register(CountryViewCell.self)
-            $0.dataSource = self
-            $0.delegate = self
-        }
+        self.countriesTable?.register(CountryViewCell.self)
     }
     
     private func prepareCountriesInfo() {
-        NetworkManager<[Country]>().loadData(query: Strings.query) {
-            $0.do {
-                self.model = $0.filter { !$0.capital.isEmpty }
-                    .map(CountryData.init)
+        CountryManager().loadCountries {
+            let data = CountriesData(countries: $0)
+            data.observer { _ in
+                dispatchOnMain {
+                    self.selectedIndexPath.do {
+                        self.countriesTable?.reloadRow(at: $0, with: .none)
+                    }
+                }
             }
+            
+            self.model = data
         }
     }
 }
