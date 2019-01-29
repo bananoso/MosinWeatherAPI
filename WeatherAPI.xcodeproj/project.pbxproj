@@ -45,6 +45,7 @@
 		3F698DA622008302008D321E /* WeatherJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DA522008302008D321E /* WeatherJSON.swift */; };
 		3F698DA92200844D008D321E /* CountryJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DA82200844D008D321E /* CountryJSON.swift */; };
 		3F698DAB220085A3008D321E /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DAA220085A3008D321E /* Wrapper.swift */; };
+		3F698DAF2200926D008D321E /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DAE2200926D008D321E /* RequestService.swift */; };
 		3F6D7E9F21EF1B97000F0367 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7E9D21EF1B97000F0367 /* TableViewCell.swift */; };
 		3F6D7EA221EF1E03000F0367 /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7EA021EF1E03000F0367 /* UINib+Extensions.swift */; };
 		3F6D7EA321EF1E03000F0367 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7EA121EF1E03000F0367 /* UITableView+Extensions.swift */; };
@@ -101,6 +102,7 @@
 		3F698DA522008302008D321E /* WeatherJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherJSON.swift; sourceTree = "<group>"; };
 		3F698DA82200844D008D321E /* CountryJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryJSON.swift; sourceTree = "<group>"; };
 		3F698DAA220085A3008D321E /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
+		3F698DAE2200926D008D321E /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		3F6D7E9D21EF1B97000F0367 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		3F6D7EA021EF1E03000F0367 /* UINib+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
 		3F6D7EA121EF1E03000F0367 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				3F6D7E9D21EF1B97000F0367 /* TableViewCell.swift */,
+				3F698DAE2200926D008D321E /* RequestService.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				3F3F062321E74733002571A7 /* WeatherView.swift in Sources */,
 				3F1CC2F221E61C84001F9AFE /* ObservableObject.swift in Sources */,
 				3FF9CADD21EE293400440EB7 /* URLSession+Extensions.swift in Sources */,
+				3F698DAF2200926D008D321E /* RequestService.swift in Sources */,
 				3FC1A68A21F0B00100468395 /* Double+Extensions.swift in Sources */,
 				3F1CC2F121E61C84001F9AFE /* ObservableObject.Observers.swift in Sources */,
 				3F1CC30321E61C84001F9AFE /* NSLocking+Extensions.swift in Sources */,
