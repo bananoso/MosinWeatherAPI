@@ -44,6 +44,7 @@
 		3F3F062921E74E44002571A7 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3F062821E74E44002571A7 /* UIColor+Extensions.swift */; };
 		3F698DA622008302008D321E /* WeatherJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DA522008302008D321E /* WeatherJSON.swift */; };
 		3F698DA92200844D008D321E /* CountryJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DA82200844D008D321E /* CountryJSON.swift */; };
+		3F698DAB220085A3008D321E /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F698DAA220085A3008D321E /* Wrapper.swift */; };
 		3F6D7E9F21EF1B97000F0367 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7E9D21EF1B97000F0367 /* TableViewCell.swift */; };
 		3F6D7EA221EF1E03000F0367 /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7EA021EF1E03000F0367 /* UINib+Extensions.swift */; };
 		3F6D7EA321EF1E03000F0367 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D7EA121EF1E03000F0367 /* UITableView+Extensions.swift */; };
@@ -99,6 +100,7 @@
 		3F3F062821E74E44002571A7 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		3F698DA522008302008D321E /* WeatherJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherJSON.swift; sourceTree = "<group>"; };
 		3F698DA82200844D008D321E /* CountryJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryJSON.swift; sourceTree = "<group>"; };
+		3F698DAA220085A3008D321E /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
 		3F6D7E9D21EF1B97000F0367 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		3F6D7EA021EF1E03000F0367 /* UINib+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
 		3F6D7EA121EF1E03000F0367 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				3F1CC2D821E61C84001F9AFE /* Queue.swift */,
 				3F1CC2D921E61C84001F9AFE /* Atomic.swift */,
 				3F1CC2DE21E61C84001F9AFE /* Weak.swift */,
+				3F698DAA220085A3008D321E /* Wrapper.swift */,
 				3F1CC2DA21E61C84001F9AFE /* CancellableProperty */,
 				3F1CC2D221E61C84001F9AFE /* ObservableObject */,
 			);
@@ -429,6 +432,7 @@
 				3F1CC30621E61C84001F9AFE /* Weakifiable.swift in Sources */,
 				3F3F062921E74E44002571A7 /* UIColor+Extensions.swift in Sources */,
 				3F3F062021E7471E002571A7 /* WeatherViewController.swift in Sources */,
+				3F698DAB220085A3008D321E /* Wrapper.swift in Sources */,
 				3F698DA92200844D008D321E /* CountryJSON.swift in Sources */,
 				3F1CC2F521E61C84001F9AFE /* F.swift in Sources */,
 				3F1CC30221E61C84001F9AFE /* Timer+Extensions.swift in Sources */,
