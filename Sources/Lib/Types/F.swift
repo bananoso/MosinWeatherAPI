@@ -42,3 +42,9 @@ func weakify<Wrapped: AnyObject>(_ value: Wrapped, execute: (Weak<Wrapped>) -> (
 func weakify<Wrapped: AnyObject>(_ value: Wrapped) -> Weak<Wrapped> {
     return weakify(value) {_ in }
 }
+
+func dispatchOnMain(_ execute: (() -> ())?) {
+    DispatchQueue.main.async {
+        execute?()
+    }
+}
