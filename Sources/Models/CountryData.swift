@@ -10,7 +10,7 @@ import Foundation
 
 class CountryData: ObservableObject<CountryData.Event> {
 
-    enum Event {
+    public enum Event {
         case onSetWeather(Weather)
         case onSetCountry(Country)
     }
