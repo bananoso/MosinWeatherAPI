@@ -61,7 +61,6 @@
 		3FC1A68A21F0B00100468395 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1A68921F0B00100468395 /* Double+Extensions.swift */; };
 		3FF9CAD821EE286D00440EB7 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CAD721EE286C00440EB7 /* Weather.swift */; };
 		3FF9CADD21EE293400440EB7 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CADC21EE293400440EB7 /* URLSession+Extensions.swift */; };
-		3FF9CADF21EE296000440EB7 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9CADE21EE296000440EB7 /* JSONDecoder+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,7 +120,6 @@
 		3FC1A68921F0B00100468395 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		3FF9CAD721EE286C00440EB7 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		3FF9CADC21EE293400440EB7 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
-		3FF9CADE21EE296000440EB7 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +289,6 @@
 				3F1CC2EB21E61C84001F9AFE /* NSLocking+Extensions.swift */,
 				3F1CC2EC21E61C84001F9AFE /* Optional+Extensions.swift */,
 				3F1CC2ED21E61C84001F9AFE /* Strideable+Extensions.swift */,
-				3FF9CADE21EE296000440EB7 /* JSONDecoder+Extensions.swift */,
 				3F6D7EA421EF5CC6000F0367 /* URL+Extensions.swift */,
 				3FC1A68921F0B00100468395 /* Double+Extensions.swift */,
 				3F86EC2421F6001000280511 /* DateFormatter+Extensions.swift */,
@@ -470,7 +467,6 @@
 				3F86EC2521F6001000280511 /* DateFormatter+Extensions.swift in Sources */,
 				3F1CC30121E61C84001F9AFE /* DispatchTime+Extensions.swift in Sources */,
 				3F1CC30521E61C84001F9AFE /* Strideable+Extensions.swift in Sources */,
-				3FF9CADF21EE296000440EB7 /* JSONDecoder+Extensions.swift in Sources */,
 				3F1CC2FC21E61C84001F9AFE /* RootViewRepresentable.swift in Sources */,
 				3F698DB2220094EC008D321E /* WeatherManager.swift in Sources */,
 				3F838A1021E741E50065930A /* CountriesViewController.swift in Sources */,

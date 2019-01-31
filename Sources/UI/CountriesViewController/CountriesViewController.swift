@@ -12,7 +12,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    var model = CountriesData() {
+    private var model = CountriesData() {
         didSet {
             dispatchOnMain(self.countriesTable?.reloadData)
         }
