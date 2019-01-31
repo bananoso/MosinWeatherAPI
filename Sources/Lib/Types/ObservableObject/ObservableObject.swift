@@ -25,4 +25,14 @@ class ObservableObject<Property> {
     public func notify(_ property: Property) {
         self.observers.notify(property: property)
     }
+    
+    public func routeNotify<T: ObservableObject<U>, U>(from observable: T, notify: @escaping (U) -> Property) {
+        observable.observer {
+            self.notify(notify($0))
+        }
+    }
+    
+    public func routeNotify<T: ObservableObject<Property>>(from observable: T) {
+        self.routeNotify(from: observable) { $0 }
+    }
 }
