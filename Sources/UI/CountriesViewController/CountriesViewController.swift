@@ -32,12 +32,12 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.values.count
+        return self.model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(withCellClass: CountryViewCell.self) {
-            $0.fill(with: self.model.values[indexPath.row])
+            $0.fill(with: self.model[indexPath.row])
         }
     }
     
@@ -46,7 +46,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.selectedIndexPath = indexPath
         
         let controller = WeatherViewController()
-        controller.countryData = self.model.values[indexPath.row]
+        controller.countryData = self.model[indexPath.row]
 
         self.navigationController?.pushViewController(controller, animated: true)
     }
