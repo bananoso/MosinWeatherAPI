@@ -26,9 +26,7 @@ class CountriesData: ObservableObject<CountryData.Event> {
     
     private func subscribe() {
         self.values.forEach {
-            $0.observer {
-                self.notify($0)
-            }
+            $0.observer(self.notify)
         }
     }
 }
