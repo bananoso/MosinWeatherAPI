@@ -14,8 +14,8 @@ class Weather {
         return "\(self.temperature) \(UnitTemperature.celsius.symbol)"
     }
     
-    public var temperature: Int
-    public var updateDate: Date
+    public let temperature: Int
+    public let updateDate: Date
     
     init(temperature: Int, updateDate: Date) {
         self.temperature = temperature
