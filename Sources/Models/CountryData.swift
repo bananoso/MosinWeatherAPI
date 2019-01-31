@@ -11,7 +11,7 @@ import Foundation
 class CountryData: ObservableObject<CountryData.Event> {
 
     public enum Event {
-        case onSetWeather(Weather)
+        case onSetWeather(Weather?)
         case onSetCountry(Country)
     }
     
@@ -25,8 +25,8 @@ class CountryData: ObservableObject<CountryData.Event> {
         set { self.wrappedCountry.value = newValue }
     }
     
-    private var wrappedWeather: Wrapper<Weather?>
-    private var wrappedCountry: Wrapper<Country>
+    private let wrappedWeather: Wrapper<Weather?>
+    private let wrappedCountry: Wrapper<Country>
     
     init(country: Country, weather: Weather?) {
         self.wrappedCountry = Wrapper(country)
@@ -41,13 +41,8 @@ class CountryData: ObservableObject<CountryData.Event> {
     }
     
     private func subscribe() {
-        self.wrappedWeather.observer {
-            $0.do { self.notify(.onSetWeather($0)) }
-        }
-        
-        self.wrappedCountry.observer {
-            self.notify(.onSetCountry($0))
-        }
+        self.routeNotify(from: self.wrappedWeather, notify: Event.onSetWeather)
+        self.routeNotify(from: self.wrappedCountry, notify: Event.onSetCountry)
     }
 }
 
