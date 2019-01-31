@@ -17,10 +17,6 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    private var capitalTitle: String {
-        return self.countryData?.country.capital ?? Strings.loadingError
-    }
-    
     public var countryData: CountryData?
         
     override func viewDidLoad() {
@@ -30,8 +26,9 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         self.loadWeatherData()
     }
     
-    private func loadWeatherData() {        
-        WeatherManager().loadWeather(city: self.capitalTitle) { weather in
+    private func loadWeatherData() {
+        let capital = self.countryData?.country.capital ?? Strings.loadingError
+        WeatherManager().loadWeather(city: capital) { weather in
             self.countryData?.weather = weather
             
             dispatchOnMain {
