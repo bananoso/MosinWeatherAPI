@@ -8,14 +8,10 @@
 
 import Foundation
 
-fileprivate struct DimensionSymbol {
-    static let celsius = "℃"
-}
-
 class Weather {
     
-    public var celsiusString: String {
-        return "\(self.temperature) \(DimensionSymbol.celsius)"
+    public var celsiusDescription: String {
+        return "\(self.temperature) \(UnitTemperature.celsius.symbol)"
     }
     
     public var temperature: Int

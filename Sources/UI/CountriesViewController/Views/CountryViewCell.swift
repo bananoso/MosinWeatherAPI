@@ -19,7 +19,7 @@ class CountryViewCell: TableViewCell {
         self.countryLabel?.text = data.country.name
         self.capitalLabel?.text = data.country.capital
         
-        self.temperaturelLabel?.text = data.weather?.celsiusString
+        self.temperaturelLabel?.text = data.weather?.celsiusDescription
         self.dateLabel?.text = data.weather?.updateDate.formattedTime(style: .short)
     }
 }

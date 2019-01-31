@@ -19,6 +19,6 @@ class WeatherView: UIView {
     }
     
     func fill(with weather: Weather) {
-        self.temperatureLabel?.text = weather.celsiusString
+        self.temperatureLabel?.text = weather.celsiusDescription
     }
 }
