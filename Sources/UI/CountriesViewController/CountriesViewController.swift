@@ -50,7 +50,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
 
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    
+        
     private func prepareTableView() {
         self.countriesTable?.register(CountryViewCell.self)
     }
@@ -58,10 +58,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private func prepareCountriesInfo() {
         CountryManager().loadCountries {
             let data = CountriesData(countries: $0)
-            data.observer { _ in
+            data.observer { [weak self] _ in
                 dispatchOnMain {
-                    self.selectedIndexPath.do {
-                        self.countriesTable?.reloadRow(at: $0, with: .none)
+                    self?.selectedIndexPath.do {
+                        self?.countriesTable?.reloadRow(at: $0, with: .none)
                     }
                 }
             }
