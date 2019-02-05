@@ -12,13 +12,11 @@ class Country {
     
     public let name: String
     public let capital: String
+    public var weather: Weather?
     
-    init(name: String, capital: String) {
+    init(name: String, capital: String, weather: Weather? = nil) {
         self.name = name
         self.capital = capital
-    }
-    
-    convenience init(data: CountryJSON) {
-        self.init(name: data.name, capital: data.capital)
+        self.weather = weather
     }
 }
