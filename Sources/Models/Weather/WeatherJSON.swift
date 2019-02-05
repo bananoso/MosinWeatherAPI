@@ -8,12 +8,11 @@
 
 import Foundation
 
-struct MainData: Decodable {
-    
-    public let temp: Double
-}
-
 struct WeatherJSON: Decodable {
+    
+    struct MainData: Decodable {
+        let temp: Double
+    }
     
     let main: MainData
     let dt: TimeInterval
