@@ -15,11 +15,14 @@ class CountryViewCell: TableViewCell {
     @IBOutlet var temperaturelLabel: UILabel?
     @IBOutlet var dateLabel: UILabel?
     
-    func fill(with data: CountryData){
-        self.countryLabel?.text = data.country.name
-        self.capitalLabel?.text = data.country.capital
+    func fill(with wrappedCountry: Wrapper<Country>) {
+        let country = wrappedCountry.value
+        let weather = country.weather
         
-        self.temperaturelLabel?.text = data.weather?.celsiusDescription
-        self.dateLabel?.text = data.weather?.updateDate.formattedTime(style: .short)
+        self.countryLabel?.text = country.name
+        self.capitalLabel?.text = country.capital
+        
+        self.temperaturelLabel?.text = weather?.celsiusDescription
+        self.dateLabel?.text = weather?.updateDate.formattedTime(style: .short)
     }
 }
