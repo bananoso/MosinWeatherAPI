@@ -21,11 +21,4 @@ class Weather {
         self.temperature = temperature
         self.updateDate = updateDate
     }
-    
-    convenience init(data: WeatherJSON) {
-        let temperature = data.main.temp.int ?? 0
-        let date = Date(timeIntervalSince1970: data.dt)
-        
-        self.init(temperature: temperature, updateDate: date)
-    }
 }
