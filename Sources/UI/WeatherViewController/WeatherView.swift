@@ -13,9 +13,10 @@ class WeatherView: UIView {
     @IBOutlet var capitalLabel: UILabel?
     @IBOutlet var temperatureLabel: UILabel?
     
-    func fill(with countryData: CountryData) {
-        self.capitalLabel?.text = countryData.country.capital
-        countryData.weather.do(self.fill)
+    func fill(with wrappedCountry: Wrapper<Country>) {
+        let country = wrappedCountry.value
+        self.capitalLabel?.text = country.capital
+        country.weather.do(self.fill)
     }
     
     func fill(with weather: Weather) {
