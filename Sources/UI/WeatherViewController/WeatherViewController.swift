@@ -17,23 +17,27 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    public var countryData: CountryData?
-        
+    public var networkManager: NetworkManager?
+    public var country: Wrapper<Country>?
+    
+    private let observer = CancellableProperty()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.countryData.apply(self.rootView?.fill)
         self.loadWeatherData()
     }
     
     private func loadWeatherData() {
-        let capital = self.countryData?.country.capital ?? Strings.loadingError
-        WeatherManager().loadWeather(city: capital) { weather in
-            self.countryData?.weather = weather
-            
-            dispatchOnMain {
-                self.rootView?.fill(with: weather)
+        guard let country = self.country else { return }
+        self.observer.value = country.observer {
+            $0.weather.do { weather in
+                dispatchOnMain {
+                    self.rootView?.fill(with: weather)
+                }
             }
         }
+        
+        self.networkManager?.loadWeather(country: country)
     }
 }

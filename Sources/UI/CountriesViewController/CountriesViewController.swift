@@ -11,24 +11,35 @@ import UIKit
 class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
     
     typealias RootView = CountriesView
-    
-    private var model = CountriesData() {
-        didSet {
-            dispatchOnMain(self.countriesTable?.reloadData)
-        }
-    }
-    
+
     private var countriesTable: UITableView? {
         return self.rootView?.countriesTable
     }
-
-    private var selectedIndexPath: IndexPath?
+    
+    private let model = Countries()
+    private let modelObserver = CancellableProperty()
+    private let cellObserver = CancellableProperty()
+    public var networkManager: NetworkManager?
+        
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.modelObserver.value = self.model.observer {
+            if case .add(_) = $0 {
+                dispatchOnMain(self.countriesTable?.reloadData)
+            }
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.prepareTableView()
-        self.prepareCountriesInfo()
+        self.countriesTable?.register(CountryViewCell.self)
+        self.networkManager?.loadCountries(self.model.append)
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,30 +54,18 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.selectedIndexPath = indexPath
+
+        let model = self.model[indexPath.row]
+        self.cellObserver.value = model.observer { _ in
+            dispatchOnMain {
+                self.countriesTable?.reloadRow(at: indexPath, with: .none)
+            }
+        }
         
         let controller = WeatherViewController()
-        controller.countryData = self.model[indexPath.row]
-
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
+        controller.networkManager = self.networkManager
+        controller.country = model
         
-    private func prepareTableView() {
-        self.countriesTable?.register(CountryViewCell.self)
-    }
-    
-    private func prepareCountriesInfo() {
-        CountryManager().loadCountries {
-            let data = CountriesData(countries: $0)
-            data.observer { [weak self] _ in
-                dispatchOnMain {
-                    self?.selectedIndexPath.do {
-                        self?.countriesTable?.reloadRow(at: $0, with: .none)
-                    }
-                }
-            }
-            
-            self.model = data
-        }
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }

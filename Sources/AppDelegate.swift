@@ -19,7 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     )
         -> Bool
     {
-        let navigationController = UINavigationController(rootViewController: CountriesViewController())
+        
+        let networkManager = NetworkManager(countryRequestService: .init(), weatherRequestService: .init())
+        let countriesViewController = CountriesViewController()
+        countriesViewController.networkManager = networkManager
+        
+        let navigationController = UINavigationController(rootViewController: countriesViewController)
         
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = navigationController
