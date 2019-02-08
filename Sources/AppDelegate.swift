@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     )
         -> Bool
     {
-        
-        let networkManager = NetworkManager(countryRequestService: .init(), weatherRequestService: .init())
-        let countriesViewController = CountriesViewController()
+        let requestService = RequestServiceImpl(session: .shared)
+        let networkManager = NetworkManager(requestService: requestService)
+        let countriesViewController = CountriesViewController(model: .init())
         countriesViewController.networkManager = networkManager
         
         let navigationController = UINavigationController(rootViewController: countriesViewController)
