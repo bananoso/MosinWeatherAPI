@@ -26,15 +26,16 @@ class Countries: ObservableObject<Countries.Event> {
         self.values = values
     }
     
-    public subscript(index: Int) -> Wrapper<Country> {
-        let wrapped = Wrapper(self.values[index])
-        wrapped.observer {
-            self.notify(.didUpdate($0))
+    public subscript(index: Int) -> Country {
+        // TODO: Cancel observer
+        let country = self.values[index]
+        country.observer { _ in
+            self.notify(.didUpdate(country))
         }
-        
-        return wrapped
-    }
 
+        return country
+    }
+    
     public func append(countriesOf: [Country]) {
         self.values.append(contentsOf: countriesOf)
         self.notify(.didAppend(countriesOf))

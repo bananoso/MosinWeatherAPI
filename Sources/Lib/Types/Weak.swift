@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Weak<Wrapped: AnyObject> {
+public struct Weak<Wrapped: AnyObject> {
     
     private(set) weak var value: Wrapped?
     
