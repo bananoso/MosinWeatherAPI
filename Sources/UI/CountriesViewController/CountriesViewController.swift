@@ -16,19 +16,26 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         return self.rootView?.countriesTable
     }
     
-    private let model = Countries()
+    public var networkManager: NetworkManager?
+    
+    private var isFilled = false
+    
+    private let model: Countries
     private let modelObserver = CancellableProperty()
     private let cellObserver = CancellableProperty()
-    public var networkManager: NetworkManager?
         
-    public init() {
+    public init(model: Countries) {
+        self.model = model
+        
         super.init(nibName: nil, bundle: nil)
         
-        self.modelObserver.value = self.model.observer {
-            if case .add(_) = $0 {
-                dispatchOnMain(self.countriesTable?.reloadData)
+        self.modelObserver.value = model.observer { [weak self] in
+            if case .didAppend = $0 {
+                dispatchOnMain(self?.reloadTable)
             }
         }
+        
+        self.networkManager?.load(countriesModel: self.model)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,7 +46,9 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         
         self.countriesTable?.register(CountryViewCell.self)
-        self.networkManager?.loadCountries(self.model.append)
+        if !self.isFilled {
+            self.reloadTable()
+        }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,24 +57,31 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(withCellClass: CountryViewCell.self) {
-            $0.fill(with: self.model[indexPath.row])
+            $0.country = self.model[indexPath.row]
         }
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let model = self.model[indexPath.row]
-        self.cellObserver.value = model.observer { _ in
+        let country = self.model[indexPath.row]
+        self.cellObserver.value = country.observer { _ in
             dispatchOnMain {
-                self.countriesTable?.reloadRow(at: indexPath, with: .none)
+                tableView.reloadRow(at: indexPath, with: .none)
             }
         }
         
         let controller = WeatherViewController()
         controller.networkManager = self.networkManager
-        controller.country = model
-        
+        controller.country = country
+
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func reloadTable() {
+        self.countriesTable.do {
+            dispatchOnMain($0.reloadData)
+            self.isFilled = true
+        }
     }
 }
