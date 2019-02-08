@@ -15,8 +15,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private var countriesTable: UITableView? {
         return self.rootView?.countriesTable
     }
-    private var isFilled = false
     
+    private var isFilled = false
     
     private let model: Countries
     private let modelObserver = CancellableProperty()

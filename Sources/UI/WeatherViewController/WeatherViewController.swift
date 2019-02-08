@@ -43,8 +43,8 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     }
     
     private func subscribe(country: Country) {
-        self.observer.value = country.observer { _ in
-            dispatchOnMain(self.fill)
+        self.observer.value = country.observer { [weak self] _ in
+            dispatchOnMain(self?.fill)
         }
     }
     

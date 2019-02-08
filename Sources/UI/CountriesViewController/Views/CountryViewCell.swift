@@ -29,11 +29,11 @@ class CountryViewCell: TableViewCell {
         self.countryLabel?.text = country.name
         self.capitalLabel?.text = country.capital
 
-        self.observer.value = country.observer {
+        self.observer.value = country.observer { [weak self] in
             if case .didChangeWeather = $0 {
                 dispatchOnMain {
-                    self.temperaturelLabel?.text = weather?.celsiusDescription
-                    self.dateLabel?.text = weather?.updateDate.formattedTime(style: .short)
+                    self?.temperaturelLabel?.text = weather?.celsiusDescription
+                    self?.dateLabel?.text = weather?.updateDate.formattedTime(style: .short)
                 }
             }
         }
