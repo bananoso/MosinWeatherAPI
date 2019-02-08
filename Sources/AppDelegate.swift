@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         let requestService = RequestServiceImpl(session: .shared)
         let networkManager = NetworkManager(requestService: requestService)
-        let countriesViewController = CountriesViewController(model: .init())
-        countriesViewController.networkManager = networkManager
+        let countriesViewController = CountriesViewController(model: .init(), networkManager: networkManager)
         
         let navigationController = UINavigationController(rootViewController: countriesViewController)
         

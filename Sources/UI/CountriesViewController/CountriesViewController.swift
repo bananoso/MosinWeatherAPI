@@ -15,17 +15,17 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private var countriesTable: UITableView? {
         return self.rootView?.countriesTable
     }
-    
-    public var networkManager: NetworkManager?
-    
     private var isFilled = false
+    
     
     private let model: Countries
     private let modelObserver = CancellableProperty()
     private let cellObserver = CancellableProperty()
+    private let networkManager: NetworkManager
         
-    public init(model: Countries) {
+    public init(model: Countries, networkManager: NetworkManager) {
         self.model = model
+        self.networkManager = networkManager
         
         super.init(nibName: nil, bundle: nil)
         
@@ -35,7 +35,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         
-        self.networkManager?.load(countriesModel: self.model)
+        self.networkManager.load(countriesModel: model)
     }
     
     required init?(coder aDecoder: NSCoder) {
