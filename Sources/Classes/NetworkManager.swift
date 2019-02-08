@@ -9,67 +9,97 @@
 import Foundation
 
 class NetworkManager {
-    
-    private struct Strings {
+
+    private struct Query {
+
+        static let allCountries = "https://restcountries.eu/rest/v2/all"
+
+        static func weather(city: String) -> String? {
+            return city
+                .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                .map(self.cityWeather)
+        }
         
-        static let allCountriesQuery = "https://restcountries.eu/rest/v2/all"
-        
-        static func weatherQuery(city: String) -> String {
-            return "https://api.openweathermap.org/data/2.5/weather?q="
-                + city
+        private static let cityWeather: (String) -> String = {
+            "https://api.openweathermap.org/data/2.5/weather?q="
+                + $0
                 + "&units=metric&appid=5372fc075a669c8e7a76effda37c5eb5"
         }
     }
-    
-    private var countryRequestService: RequestService<[CountryJSON]>
-    private var weatherRequestService: RequestService<WeatherJSON>
-    
-    init(countryRequestService: RequestService<[CountryJSON]>, weatherRequestService: RequestService<WeatherJSON>) {
-        self.countryRequestService = countryRequestService
-        self.weatherRequestService = weatherRequestService
+
+    private var requestService: RequestService
+
+    init(requestService: RequestService) {
+        self.requestService = requestService
     }
-    
-    public func loadCountries(_ completion: F.Completion<[Country]>? = nil) {
-        self.load(
-            query: Strings.allCountriesQuery,
-            requestService: self.countryRequestService,
-            parser: { modelJSON in
-                modelJSON
-                    .filter { !$0.capital.isEmpty }
-                    .map { Country(name: $0.name, capital: $0.capital) }
-            },
-            completion: completion
-        )
-    }
-    
-    public func loadWeather(country: Wrapper<Country>, completion: F.Completion<Weather>? = nil) {
-        self.load(
-            query: Strings.weatherQuery(city: country.value.capital),
-            requestService: self.weatherRequestService,
-            parser: { data in
-                return country.update {
-                    let weather = Weather(
-                        temperature: data.main.temp.int ?? 0,
-                        updateDate: Date(timeIntervalSince1970: data.dt)
-                    )
-                    $0.weather = weather
-                    
-                    return weather
-                }
-            },
-            completion: completion
-        )
-    }
-    
-    private func load<ModelJSON: Decodable, Model>(
-        query: String,
-        requestService: RequestService<ModelJSON>,
-        parser: @escaping (ModelJSON) -> Model,
-        completion: F.Completion<Model>?
-    ) {
-        requestService.loadData(query: query) {
-            let parsedData = parser($0)
-            completion?(parsedData)
+
+    @discardableResult
+    public func load(
+        countriesModel: Countries,
+        _ completion: F.Completion<[Country]>? = nil
+    )
+        -> NetworkTask?
+    {
+        return URL(string: Query.allCountries).map {
+            self.loadModel(
+                at: $0,
+                parser: { side(countries($0), execute: ignoreInOut § countriesModel.append) },
+                completion: completion
+            )
         }
     }
+
+    @discardableResult
+    public func loadWeather(
+        country: Country,
+        completion: F.Completion<Weather>? = nil
+    )
+        -> NetworkTask?
+    {
+        return Query
+            .weather(city: country.capital)
+            .flatMap(URL.init)
+            .map {
+                self.loadModel(
+                    at: $0,
+                    parser: {
+                        side(weather($0)) {
+                            country.weather = $0
+                        }
+                    },
+                    completion: completion
+                )
+        }
+    }
+
+    private func loadModel<ModelJSON: Decodable, Model>(
+        at url: URL,
+        parser: @escaping (ModelJSON) -> Model,
+        completion: F.Completion<Model>?
+    )
+        -> NetworkTask
+    {
+        return self.requestService.loadData(at: url) { data, error in
+            data
+                .flatMap { try? JSONDecoder().decode(ModelJSON.self, from: $0) }
+                .do(parser • (mapFunc § completion))
+        }
+    }
+}
+
+fileprivate let country: (CountryJSON) -> Country = {
+    Country(name: $0.name, capital: $0.capital)
+}
+
+fileprivate let countries: ([CountryJSON]) -> [Country] = { jsons in
+    jsons
+        .filter { !$0.capital.isEmpty }
+        .map(country)
+}
+
+fileprivate let weather: (WeatherJSON) -> Weather = {
+    Weather(
+        temperature: $0.main.temp.int ?? 0,
+        updateDate: Date(timeIntervalSince1970: $0.dt)
+    )
 }
