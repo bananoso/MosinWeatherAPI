@@ -10,9 +10,28 @@ import Foundation
 
 class NetworkTask: Cancellable {
     
+    static var failed: NetworkTask {
+        let task = NetworkTask(.init())
+        task.state = .failed
+        
+        return task
+    }
+    
+    public enum State {
+        case idle
+        case inLoad
+        case didLoad
+        case cancelled
+        case failed
+    }
+    
     public let task: URLSessionTask
     
-    public private(set) var isCancelled = false
+    public var isCancelled: Bool {
+        return self.state == .cancelled
+    }
+    
+    private var state = State.idle
     
     init(_ task: URLSessionTask) {
         self.task = task
@@ -20,6 +39,6 @@ class NetworkTask: Cancellable {
     
     func cancel() {
         self.task.cancel()
-        self.isCancelled = true
+        self.state = .cancelled
     }
 }
