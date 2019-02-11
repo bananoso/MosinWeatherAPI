@@ -10,6 +10,10 @@ import Foundation
 
 struct Lens<A, B> {
     
-    let from: (A) -> B
-    let to: (B, A) -> A
+    public var `for`: (A, B) -> A {
+        return flip § to
+    }
+    
+    public let from: (A) -> B
+    public let to: (B, A) -> A
 }
