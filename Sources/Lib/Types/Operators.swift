@@ -41,8 +41,15 @@ func § <A, B>(f: (A) -> B, value: A) -> B {
     return f(value)
 }
 
-//                 RightFunctrionApplicationPrecedence
-infix operator <|: LeftFunctrionApplicationPrecedence
+func § <A, B, C>(f: @escaping (A, B) -> C, value: A) -> (B) -> C {
+    return { f(value, $0) }
+}
+
+infix operator <|: RightFunctrionApplicationPrecedence
 func <| <A, B>(f: (A) -> B, value: A) -> B {
     return f § value
+}
+
+func <| <A, B, C>(f: @escaping (A, B) -> C, value: B) -> (A) -> C {
+    return { f($0, value) }
 }
