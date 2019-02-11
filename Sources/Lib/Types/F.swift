@@ -59,6 +59,10 @@ public func ignoreInput<Value, Result>(_ execute: @escaping () -> Result) -> (Va
     }
 }
 
+public func ignoreOutput<Value, Result>(_ f: @escaping (Value) -> Result) -> (Value) -> () {
+    return { _ = f($0) }
+}
+
 public func ignoreInOut<Value, Result>(_ execute: @escaping (Value) -> Result) -> (inout Value) -> Result {
     return { execute($0) }
 }
@@ -92,8 +96,4 @@ public func side<Value>(_ value: Value, execute: (inout Value) -> ()) -> Value {
     execute(&mutableValue)
     
     return mutableValue
-}
-
-public func mapFunc<T>(_ f: ((T) -> ())?) -> (T) -> () {
-    return { f?($0) }
 }
