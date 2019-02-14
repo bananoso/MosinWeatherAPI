@@ -6,9 +6,9 @@
 //  Copyright © 2019 IDAP. All rights reserved.
 //
 
-public enum Lenses {
+extension Country {
     
-    static let weather = Lens<Country, Weather?>(
+    static let weatherLens = Lens<Country, Weather?>(
         from: { $0.weather },
         to: {
             $1.weather = $0

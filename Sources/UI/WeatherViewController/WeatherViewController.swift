@@ -17,7 +17,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    public var networkManager: NetworkManager?
+    public var networkManager: NetworkService?
     public var country: Country? {
         didSet {
             self.loadWeather()
@@ -31,24 +31,24 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         super.viewDidLoad()
         
         if !self.isFilled {
-            self.fill()
+            self.fillWithCountry()
         }
     }
     
     private func loadWeather() {
-        self.country.do {
-            self.subscribe(country: $0)
+        self.subscribe()
+        self.country.map {
             self.networkManager?.loadWeather(country: $0)
         }
     }
     
-    private func subscribe(country: Country) {
-        self.observer.value = country.observer { [weak self] _ in
-            dispatchOnMain(self?.fill)
+    private func subscribe() {
+        self.observer.value = self.country?.observer { [weak self] _ in
+            dispatchOnMain(self?.fillWithCountry)
         }
     }
     
-    private func fill() {
+    private func fillWithCountry() {
         self.rootView.do {
             $0.fill(with: self.country)
             self.isFilled = true

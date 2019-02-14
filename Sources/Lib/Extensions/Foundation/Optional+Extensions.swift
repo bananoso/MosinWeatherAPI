@@ -26,4 +26,16 @@ extension Optional {
     public func apply<Result>(_ transform: ((Wrapped) -> Result)?) -> Result? {
         return self.flatMap { transform?($0) }
     }
+    
+    public func apply<Value, Result>(_ value: Value?) -> Result?
+        where Wrapped == (Value) -> Result
+    {
+        return value.apply(self)
+    }
+    
+    public func flatten<Result>() -> Result?
+        where Wrapped == Result?
+    {
+        return self.flatMap(identity)
+    }
 }

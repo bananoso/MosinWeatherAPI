@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     )
         -> Bool
     {
-        let requestService = RequestServiceImpl(session: .shared)
-        let networkManager = NetworkManager(requestService: requestService)
+        let requestService = RequestService(session: .shared)
+        let networkManager = NetworkService(requestService: requestService)
         let countriesViewController = CountriesViewController(model: .init(), networkManager: networkManager)
         
         let navigationController = UINavigationController(rootViewController: countriesViewController)

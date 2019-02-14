@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Weather {
+struct Weather {
     
     public var celsiusDescription: String {
         return "\(self.temperature) \(UnitTemperature.celsius.symbol)"
@@ -16,9 +16,4 @@ class Weather {
     
     public let temperature: Int
     public let updateDate: Date
-    
-    init(temperature: Int, updateDate: Date) {
-        self.temperature = temperature
-        self.updateDate = updateDate
-    }
 }

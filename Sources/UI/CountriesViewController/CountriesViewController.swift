@@ -19,11 +19,12 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private var isFilled = false
     
     private let model: Countries
+    private let networkManager: NetworkService
     private let modelObserver = CancellableProperty()
+    
     private let cellObserver = CancellableProperty()
-    private let networkManager: NetworkManager
         
-    public init(model: Countries, networkManager: NetworkManager) {
+    public init(model: Countries, networkManager: NetworkService) {
         self.model = model
         self.networkManager = networkManager
         
@@ -57,23 +58,23 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(withCellClass: CountryViewCell.self) {
-            $0.country = self.model[indexPath.row]
+            let country = self.model[indexPath.row]
+            $0.country = country
+            
+            $0.cancellableObserver = country.observer { _ in
+                dispatchOnMain {
+                    tableView.reloadRow(at: indexPath, with: .none)
+                }
+            }
         }
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let country = self.model[indexPath.row]
-        self.cellObserver.value = country.observer { _ in
-            dispatchOnMain {
-                tableView.reloadRow(at: indexPath, with: .none)
-            }
-        }
-        
         let controller = WeatherViewController()
         controller.networkManager = self.networkManager
-        controller.country = country
+        controller.country = self.model[indexPath.row]
 
         self.navigationController?.pushViewController(controller, animated: true)
     }

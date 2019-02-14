@@ -17,25 +17,34 @@ class CountryViewCell: TableViewCell {
     
     public var country: Country? {
         didSet {
-            self.country.do(self.fill)
+            self.prepareObserver()
+            self.fillWithModel()
         }
     }
     
-    private let observer = CancellableProperty()
+    public var cancellableObserver: Cancellable? {
+        get { return self.cellObserverProperty.value }
+        set { self.cellObserverProperty.value = newValue }
+    }
     
-    private func fill(with country: Country) {
-        let weather = country.weather
-        
-        self.countryLabel?.text = country.name
-        self.capitalLabel?.text = country.capital
-
-        self.observer.value = country.observer { [weak self] in
-            if case .didChangeWeather = $0 {
-                dispatchOnMain {
-                    self?.temperaturelLabel?.text = weather?.celsiusDescription
-                    self?.dateLabel?.text = weather?.updateDate.formattedTime(style: .short)
-                }
+    private let cellObserverProperty = CancellableProperty()
+    private let countryObserver = CancellableProperty()
+    
+    private func prepareObserver() {
+        self.countryObserver.value = self.country?.observer { [weak self] _ in
+            dispatchOnMain {
+                self?.fillWithModel()
             }
         }
+    }
+    
+    private func fillWithModel() {
+        let country = self.country
+        let weather = country?.weather
+        
+        self.countryLabel?.text = country?.name
+        self.capitalLabel?.text = country?.capital
+        self.temperaturelLabel?.text = weather?.celsiusDescription
+        self.dateLabel?.text = weather?.updateDate.formattedTime(style: .short)
     }
 }
