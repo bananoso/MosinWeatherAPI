@@ -56,6 +56,7 @@
 		3F838A1021E741E50065930A /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F838A0E21E741E50065930A /* CountriesViewController.swift */; };
 		3F838A1121E741E50065930A /* CountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F838A0F21E741E50065930A /* CountriesViewController.xib */; };
 		3F838A1321E7420A0065930A /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F838A1221E7420A0065930A /* CountriesView.swift */; };
+		3F849A55221589B900A80159 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F849A54221589B900A80159 /* Realm+Extensions.swift */; };
 		3F86EC2521F6001000280511 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86EC2421F6001000280511 /* DateFormatter+Extensions.swift */; };
 		3F86EC2721F613E100280511 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86EC2621F613E100280511 /* Date+Extensions.swift */; };
 		3FC1A68A21F0B00100468395 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1A68921F0B00100468395 /* Double+Extensions.swift */; };
@@ -120,6 +121,7 @@
 		3F838A0E21E741E50065930A /* CountriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
 		3F838A0F21E741E50065930A /* CountriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountriesViewController.xib; sourceTree = "<group>"; };
 		3F838A1221E7420A0065930A /* CountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesView.swift; sourceTree = "<group>"; };
+		3F849A54221589B900A80159 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		3F86EC2421F6001000280511 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		3F86EC2621F613E100280511 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		3FC1A68921F0B00100468395 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
@@ -150,7 +152,6 @@
 				D05E474A0B493D53999C6C52 /* Pods-WeatherAPI.debug.xcconfig */,
 				84FD573256600AF0BE5CC6FA /* Pods-WeatherAPI.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -278,6 +279,7 @@
 		3F1CC2E121E61C84001F9AFE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3F849A532215899C00A80159 /* Realm */,
 				3F1CC2E221E61C84001F9AFE /* CoreGraphics */,
 				3F1CC2E421E61C84001F9AFE /* UIKit */,
 				3F1CC2E621E61C84001F9AFE /* Foundation */,
@@ -387,6 +389,14 @@
 				3F838A1221E7420A0065930A /* CountriesView.swift */,
 			);
 			path = CountriesViewController;
+			sourceTree = "<group>";
+		};
+		3F849A532215899C00A80159 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				3F849A54221589B900A80159 /* Realm+Extensions.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		3FF9CAD921EE28CB00440EB7 /* Classes */ = {
@@ -516,12 +526,16 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WeatherAPI/Pods-WeatherAPI-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -570,6 +584,7 @@
 				3F1CC30721E61C84001F9AFE /* Cancellable.swift in Sources */,
 				3F83392C2211BDF800E820A3 /* Lenses.swift in Sources */,
 				3F1CC2F621E61C84001F9AFE /* Queue.swift in Sources */,
+				3F849A55221589B900A80159 /* Realm+Extensions.swift in Sources */,
 				3F3F062321E74733002571A7 /* WeatherView.swift in Sources */,
 				3FFA3A2D220C66E400341126 /* NetworkTask.swift in Sources */,
 				3F1CC2F221E61C84001F9AFE /* ObservableObject.swift in Sources */,
