@@ -11,7 +11,7 @@ import UIKit
 extension UITableView {
     
     func register(_ cellClass: AnyClass) {
-        self.register(UINib(cellClass), forCellReuseIdentifier: toString(cellClass))
+        self.register(UINib(cellClass), forCellReuseIdentifier: typeString(cellClass))
     }
     
     func reloadRow(at indexPath: IndexPath, with animation: UITableView.RowAnimation) {
@@ -24,7 +24,7 @@ extension UITableView {
     )
         -> Cell
     {
-        let cell = cast(self.dequeueReusableCell(withIdentifier: toString(cellClass))) ?? Cell()
+        let cell = cast(self.dequeueReusableCell(withIdentifier: typeString(cellClass))) ?? Cell()
         configurator?(cell)
         
         return cell
@@ -37,7 +37,7 @@ extension UITableView {
     )
         -> Cell
     {
-        let cell = cast(self.dequeueReusableCell(withIdentifier: toString(cellClass), for: indexPath)) ?? Cell()
+        let cell = cast(self.dequeueReusableCell(withIdentifier: typeString(cellClass), for: indexPath)) ?? Cell()
         configurator?(cell, indexPath)
         
         return cell

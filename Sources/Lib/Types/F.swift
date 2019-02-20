@@ -15,8 +15,12 @@ public enum F {
     typealias Predicate<Value> = (Value) -> Bool
 }
 
-public func toString(_ cls: AnyClass) -> String {
+public func typeString(_ cls: AnyClass) -> String {
     return String(describing: cls)
+}
+
+public func typeString<T>(_ value: T) -> String {
+    return typeString § type(of: value)
 }
 
 public func when<Result>(_ condition: Bool, execute: () -> Result?) -> Result? {
@@ -96,4 +100,16 @@ public func side<Value>(_ value: Value, execute: (inout Value) -> ()) -> Value {
     execute(&mutableValue)
     
     return mutableValue
+}
+
+public func sideEffect<Value>(action: @escaping (Value) -> ()) -> (Value) -> Value {
+    return {
+        action($0)
+        
+        return $0
+    }
+}
+
+public func call<Value>(action: () -> Value) -> Value {
+    return action()
 }
