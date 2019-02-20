@@ -10,5 +10,8 @@ import UIKit
 
 class CountriesView: UIView {
 
+    // MARK: -
+    // MARK: Properties
+    
     @IBOutlet var countriesTable: UITableView?
 }

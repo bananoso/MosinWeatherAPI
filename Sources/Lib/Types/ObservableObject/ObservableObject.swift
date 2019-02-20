@@ -8,11 +8,20 @@
 
 import Foundation
 
-class ObservableObject<Property> {
+public class ObservableObject<Property> {
+    
+    // MARK: -
+    // MARK: Subtypes
     
     public typealias Handler = (Property) -> ()
     
+    // MARK: -
+    // MARK: Properties
+    
     private let observers = Observers()
+    
+    // MARK: -
+    // MARK: Public
     
     @discardableResult
     public func observer(_ handler: @escaping Handler) -> Observer {

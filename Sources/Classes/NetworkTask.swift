@@ -8,14 +8,10 @@
 
 import Foundation
 
-class NetworkTask: Cancellable {
+public class NetworkTask: Cancellable {
     
-    static var failed: NetworkTask {
-        let task = NetworkTask(.init())
-        task.state = .failed
-        
-        return task
-    }
+    // MARK: -
+    // MARK: Subtypes
     
     public enum State {
         case idle
@@ -25,19 +21,38 @@ class NetworkTask: Cancellable {
         case failed
     }
     
-    public let task: URLSessionTask
+    // MARK: -
+    // MARK: Static
+    
+    static var failed: NetworkTask {
+        let task = NetworkTask(.init())
+        task.state = .failed
+        
+        return task
+    }
+    
+    // MARK: -
+    // MARK: Properties
     
     public var isCancelled: Bool {
         return self.state == .cancelled
     }
     
+    public let task: URLSessionTask
+    
     private var state = State.idle
+    
+    // MARK: -
+    // MARK: Init and Deinit
     
     init(_ task: URLSessionTask) {
         self.task = task
     }
     
-    func cancel() {
+    // MARK: -
+    // MARK: Public
+    
+    public func cancel() {
         self.task.cancel()
         self.state = .cancelled
     }

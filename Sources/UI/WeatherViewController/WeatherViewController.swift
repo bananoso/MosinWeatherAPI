@@ -13,21 +13,31 @@ fileprivate struct Strings {
     static let loadingError = "Loading error"
 }
 
-class WeatherViewController: UIViewController, RootViewRepresentable {
+public class WeatherViewController: UIViewController, RootViewRepresentable {
 
+    // MARK: -
+    // MARK: Subtypes
+    
     typealias RootView = WeatherView
     
-    public var networkManager: NetworkService?
+    // MARK: -
+    // MARK: Properties
+    
     public var country: Country? {
         didSet {
             self.loadWeather()
         }
     }
     
+    public var networkManager: WeatherNetworkService<DataBaseService<RealmPersistence<RLMWeather>>>?
+    
     private var isFilled = false
     private let observer = CancellableProperty()
     
-    override func viewDidLoad() {
+    // MARK: -
+    // MARK: View Lifecycle
+    
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         if !self.isFilled {
@@ -35,9 +45,12 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         }
     }
     
+    // MARK: -
+    // MARK: Private
+    
     private func loadWeather() {
         self.subscribe()
-        self.country.map {
+        self.country.do {
             self.networkManager?.loadWeather(country: $0)
         }
     }

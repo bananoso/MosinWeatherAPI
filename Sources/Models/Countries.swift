@@ -8,7 +8,10 @@
 
 import Foundation
 
-class Countries: ObservableObject<Countries.Event> {
+public class Countries: ObservableObject<Countries.Event> {
+    
+    // MARK: -
+    // MARK: Subtypes
     
     public enum Event {
         case didAppend([Country])
@@ -16,25 +19,24 @@ class Countries: ObservableObject<Countries.Event> {
         case didUpdate(Country)
     }
     
+    // MARK: -
+    // MARK: Properties
+    
     public var count: Int {
         return self.values.count
     }
     
     private var values: [Country]
     
+    // MARK: -
+    // MARK: Init and Deinit
+    
     init(values: [Country] = []) {
         self.values = values
     }
     
-    public subscript(index: Int) -> Country {
-        // TODO: Cancel observer
-        let country = self.values[index]
-        country.observer { _ in
-            self.notify(.didUpdate(country))
-        }
-
-        return country
-    }
+    // MARK: -
+    // MARK: Public
     
     public func append(countriesOf: [Country]) {
         self.values.append(contentsOf: countriesOf)
@@ -50,5 +52,18 @@ class Countries: ObservableObject<Countries.Event> {
         defer { self.notify(.didRemove(value)) }
         
         return value
+    }
+    
+    // MARK: -
+    // MARK: Array protocol
+    
+    public subscript(index: Int) -> Country {
+        // TODO: Cancel observer
+        let country = self.values[index]
+//        country.observer { _ in
+//            self.notify(.didUpdate(country))
+//        }
+        
+        return country
     }
 }

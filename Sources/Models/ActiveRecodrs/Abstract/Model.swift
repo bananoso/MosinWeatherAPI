@@ -10,106 +10,136 @@ import Foundation
 
 import RealmSwift
 
-public class Model<Storage: RLMModel> {
-    
+//public protocol Modelable: class {
+//    var id: ID { get }
+//}
+//
+//public class Model: Modelable {
+//
+//    // MARK: -
+//    // MARK: Properties
+//
+//    public let id: ID
+//
+//    public var storageID: String {
+//        return "\(self.id)_\(typeString(self).lowercased())"
+//    }
+//
+////    public var storage: StorageType {
+////        return self.persistence.read(id: self.id)
+////    }
+//
+//    // MARK: -
+//    // MARK: Init and Deinit
+//
+//    public required init(id: ID) {
+//        self.id = id
+//
+////        self.configure()
+//    }
+//
+//    public convenience init(_ id: Int) {
+//        self.init(id: ID(id))
+//    }
+//
+//    // MARK: -
+//    // MARK: Open
+//
+////    open func configure() {
+////        self.read()
+////    }
+//}
+
+public class Model<Persistence: Persistable>: Modelable where Persistence.Storage: AnyObject {
+
     // MARK: -
     // MARK: Subtypes
-    
-    public typealias StorageType = Storage
-    
-    // MARK: -
-    // MARK: Static
-    
-    public static func instantiate(storage: StorageType?) -> Self? {
-        return storage
-            .flatMap { $0.id.split(separator: "_").first }
-            .flatMap { ID(string: String($0)) }
-            .map(self.init)
-    }
-    
+
+    public typealias StorageType = Persistence.Storage
+
     // MARK: -
     // MARK: Properties
-    
+
     public let id: ID
-    
+
     public var storageID: String {
         return "\(self.id)_\(typeString(self).lowercased())"
     }
-    
+
     public var storage: StorageType {
-        let id = self.storageID
-        
-        return Realm.current?.object(ofType: StorageType.self, forPrimaryKey: id)
-            ?? side(StorageType()) { storage in
-                storage.id = id
-                Realm.write { $0.add(storage) }
-            }
+        return self.persistence.read(id: self.id)
     }
-    
+
     private let lock: NSLocking = NSRecursiveLock()
+
     private var isInWriteTransaction = false
     private var isInReadTransaction = false
-    
+
+    public let persistence: Persistence
+
     // MARK: -
     // MARK: Init and Deinit
-    
-    public required init(_ id: ID) {
+
+    public required init(id: ID, persistence: Persistence) {
         self.id = id
-        
+        self.persistence = persistence
+
         self.configure()
     }
-    
-    public convenience init(_ id: Int) {
-        self.init(ID(id))
+
+    public convenience init(_ id: Int, persistence: Persistence) {
+        self.init(id: ID(id), persistence: persistence)
     }
-    
+
     // MARK: -
     // MARK: Public
-    
+
     public func read() {
         self.performStorageTransaction(
             excluding: self.isInWriteTransaction,
             condition: { self.isInReadTransaction = $0 },
-            action: { self.readStorage(self.storage) }
+            action: {
+                self.readStorage(self.storage)
+            }
         )
     }
-    
+
+    // FIXME: Add actions
     public func write() {
         self.update {
-            self.writeStorage(self.storage)
+            let storage = self.storage
+
+//            self.writeStorage(storage)
+            self.persistence.write(storage: storage, action: self.writeStorage)
         }
     }
-    
+
     public func update(action: () -> ()) {
         self.performStorageTransaction(
             excluding: self.isInReadTransaction,
             condition: { self.isInWriteTransaction = $0 },
-            action: {
-                Realm.write { _ in
-                    action()
-                }
-            }
+            action: action
         )
     }
-    
+
     // MARK: -
     // MARK: Open
-    
+
     open func configure() {
         self.read()
     }
-    
-    open func writeStorage(_ storage: StorageType) {
-        
-    }
-    
+
     open func readStorage(_ storage: StorageType) {
-        
+
     }
-    
+
+    open func writeStorage(_ storage: StorageType) {
+
+    }
+
     // MARK: -
     // MARK: Private
-    
+
     private func performStorageTransaction(
         excluding: @autoclosure () -> Bool,
         condition: (Bool) -> (),
@@ -119,7 +149,7 @@ public class Model<Storage: RLMModel> {
             if excluding() {
                 return
             }
-            
+
             condition(true)
             action()
             condition(false)

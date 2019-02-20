@@ -8,7 +8,22 @@
 
 import Foundation
 
-struct Weather {
+import RealmSwift
+
+public class RLMWeather: RLMModel {
+    
+    // MARK: -
+    // MARK: Properties
+    
+    @objc dynamic public var updateDate: Date?
+    
+    public let temperature = RealmOptional<Int>()
+}
+
+public struct Weather {
+    
+    // MARK: -
+    // MARK: Properties
     
     public var celsiusDescription: String {
         return "\(self.temperature) \(UnitTemperature.celsius.symbol)"

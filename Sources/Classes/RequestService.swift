@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 import Alamofire
 
 public enum RequestServiceError: Error {
@@ -14,15 +15,30 @@ public enum RequestServiceError: Error {
     case failed
 }
 
-class RequestService: RequestServiceType {
+public class RequestService: RequestServiceType {
+    
+    // MARK: -
+    // MARK: Properties
     
     private let session: URLSession
     
-    init(session: URLSession) {
+    // MARK: -
+    // MARK: Init and Deinit
+    
+    public init(session: URLSession) {
         self.session = session
     }
     
-    func loadData(at url: URLConvertible, completion: @escaping (Result<Data, RequestServiceError>) -> ()) -> NetworkTask {
+    // MARK: -
+    // MARK: Public
+    
+    // TODO: Refactoring func
+    public func loadData(
+        at url: URLConvertible,
+        completion: @escaping (Result<Data, RequestServiceError>) -> ()
+    )
+        -> NetworkTask
+    {
         let dataRequest = request(url).response {
             completion § Result(
                 value: $0.data,
@@ -36,13 +52,5 @@ class RequestService: RequestServiceType {
         }
         
         return dataRequest.task.map(NetworkTask.init) ?? .failed
-        
-//        return self.session.resumedDataTask(with: url) { data, response, error in
-//            completion § Result(
-//                value: data,
-//                error:  error.map(ignoreInput § returnValue § .failed),
-//                default: .unknown
-//            )
-//        }
     }
 }

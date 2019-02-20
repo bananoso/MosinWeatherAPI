@@ -8,6 +8,8 @@
 
 import UIKit
 
+import RealmSwift
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,7 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         -> Bool
     {
         let requestService = RequestService(session: .shared)
-        let networkManager = NetworkService(requestService: requestService)
+        let dataBaseService = DataBaseService(persistence: RealmPersistence<RLMCountry>())
+        let networkManager = CountriesNetworkService(requestService: requestService, dataBaseService: dataBaseService)
         let countriesViewController = CountriesViewController(model: .init(), networkManager: networkManager)
         
         let navigationController = UINavigationController(rootViewController: countriesViewController)

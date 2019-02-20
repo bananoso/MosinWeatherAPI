@@ -8,10 +8,16 @@
 
 import UIKit
 
-class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
+public class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
+    
+    // MARK: -
+    // MARK: Subtypes
     
     typealias RootView = CountriesView
 
+    // MARK: -
+    // MARK: Properties
+    
     private var countriesTable: UITableView? {
         return self.rootView?.countriesTable
     }
@@ -19,12 +25,14 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private var isFilled = false
     
     private let model: Countries
-    private let networkManager: NetworkService
+    private let networkManager: CountriesNetworkService<DataBaseService<RealmPersistence<RLMCountry>>>
     private let modelObserver = CancellableProperty()
-    
     private let cellObserver = CancellableProperty()
-        
-    public init(model: Countries, networkManager: NetworkService) {
+    
+    // MARK: -
+    // MARK: Init and Deinit
+    
+    public init(model: Countries, networkManager: CountriesNetworkService<DataBaseService<RealmPersistence<RLMCountry>>>) {
         self.model = model
         self.networkManager = networkManager
         
@@ -35,7 +43,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
                 dispatchOnMain(self?.reloadTable)
             }
         }
-        
+
         self.networkManager.load(countriesModel: model)
     }
     
@@ -43,7 +51,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    // MARK: -
+    // MARK: View Lifecycle
+    
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         self.countriesTable?.register(CountryViewCell.self)
@@ -51,6 +62,19 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             self.reloadTable()
         }
     }
+    
+    // MARK: -
+    // MARK: Private
+    
+    private func reloadTable() {
+        self.countriesTable.do {
+            dispatchOnMain($0.reloadData)
+            self.isFilled = true
+        }
+    }
+    
+    // MARK: -
+    // MARK: UITableViewDataSource protocol
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.model.count
@@ -69,20 +93,21 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
+    // MARK: -
+    // MARK: UITableViewDelegate protocol
+    
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
+        
         let controller = WeatherViewController()
-        controller.networkManager = self.networkManager
+        
+        let requestService = RequestService(session: .shared)
+        let dataBaseService = DataBaseService(persistence: RealmPersistence<RLMWeather>())
+        let networkManager = WeatherNetworkService(requestService: requestService, dataBaseService: dataBaseService)
+        
+        controller.networkManager = networkManager
         controller.country = self.model[indexPath.row]
-
+        
         self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    private func reloadTable() {
-        self.countriesTable.do {
-            dispatchOnMain($0.reloadData)
-            self.isFilled = true
-        }
     }
 }

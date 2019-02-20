@@ -7,9 +7,10 @@
 //
 
 import Foundation
+
 import Alamofire
 
-protocol RequestServiceType {
+public protocol RequestServiceType {
     
     func loadData(
         at url: URLConvertible,

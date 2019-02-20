@@ -8,17 +8,23 @@
 
 import UIKit
 
-class WeatherView: UIView {
+public class WeatherView: UIView {
 
-    @IBOutlet var capitalLabel: UILabel?
-    @IBOutlet var temperatureLabel: UILabel?
+    // MARK: -
+    // MARK: Properties
     
-    func fill(with country: Country?) {
+    @IBOutlet public var capitalLabel: UILabel?
+    @IBOutlet public var temperatureLabel: UILabel?
+    
+    // MARK: -
+    // MARK: Public
+    
+    public func fill(with country: Country?) {
         self.capitalLabel?.text = country?.capital
         self.fill(with: country?.weather)
     }
     
-    func fill(with weather: Weather?) {
+    public func fill(with weather: Weather?) {
         self.temperatureLabel?.text = weather?.celsiusDescription
     }
 }

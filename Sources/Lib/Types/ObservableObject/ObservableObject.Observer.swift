@@ -36,7 +36,7 @@ extension ObservableObject {
             self.sender = nil
         }
         
-        static func == (lhs: Observer, rhs: Observer) -> Bool {
+        public static func == (lhs: Observer, rhs: Observer) -> Bool {
             return lhs === rhs
         }
     }
