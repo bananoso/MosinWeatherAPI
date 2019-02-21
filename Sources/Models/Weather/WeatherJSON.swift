@@ -10,9 +10,15 @@ import Foundation
 
 struct WeatherJSON: Decodable {
     
+    // MARK: -
+    // MARK: Subtypes
+    
     struct MainData: Decodable {
         let temp: Double
     }
+    
+    // MARK: -
+    // MARK: Properties
     
     let main: MainData
     let dt: TimeInterval

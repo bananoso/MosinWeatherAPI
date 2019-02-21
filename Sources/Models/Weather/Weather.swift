@@ -8,27 +8,16 @@
 
 import Foundation
 
-import RealmSwift
-
-public class RLMWeather: RLMModel {
+public struct Weather: Modelable {
     
     // MARK: -
     // MARK: Properties
     
-    @objc dynamic public var updateDate: Date?
-    
-    public let temperature = RealmOptional<Int>()
-}
-
-public struct Weather {
-    
-    // MARK: -
-    // MARK: Properties
-    
-    public var celsiusDescription: String {
-        return "\(self.temperature) \(UnitTemperature.celsius.symbol)"
+    public var celsiusDescription: String? {
+        return self.temperature.map { "\($0) \(UnitTemperature.celsius.symbol)" }
     }
     
-    public let temperature: Int
-    public let updateDate: Date
+    public let id: ID
+    public let temperature: Int?
+    public let updateDate: Date?
 }
