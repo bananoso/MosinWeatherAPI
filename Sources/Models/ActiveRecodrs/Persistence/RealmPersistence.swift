@@ -43,11 +43,13 @@ public class RealmPersistence<Storage: RLMModel>: Persistable {
             }
     }
     
-    public func readAll() -> [Storage]? {
-        return self.realmFactory()?.objects(Storage.self).map(identity)
+    public func readAll() -> [Storage] {
+        return self.realmFactory()?
+            .objects(Storage.self)
+            .compactMap(identity)
+            ?? []
     }
     
-    // FIXME: Add action
     public func write(storage: Storage, action: (Storage) -> ()) {
         self.realmFactory()?.write {
             action(storage)
@@ -60,7 +62,7 @@ public class RealmPersistence<Storage: RLMModel>: Persistable {
         target = value
     }
     
-    public func write<Value>(_ value: Value, target: inout Value) {
+    public func write<Value>(_ value: Value, to target: inout Value) {
         target = value
     }
 }
