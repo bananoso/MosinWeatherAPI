@@ -25,14 +25,13 @@ public class CountriesViewController: UIViewController, UITableViewDataSource, U
     private var isFilled = false
     
     private let model: Countries
-    private let networkManager: CountriesNetworkService<DataBaseService<RealmPersistence<RLMCountry>>>
+    private let networkManager: CountriesNetworkService<CountryRealmDataBaseService>
     private let modelObserver = CancellableProperty()
-    private let cellObserver = CancellableProperty()
     
     // MARK: -
     // MARK: Init and Deinit
     
-    public init(model: Countries, networkManager: CountriesNetworkService<DataBaseService<RealmPersistence<RLMCountry>>>) {
+    public init(model: Countries, networkManager: CountriesNetworkService<CountryRealmDataBaseService>) {
         self.model = model
         self.networkManager = networkManager
         
@@ -102,7 +101,7 @@ public class CountriesViewController: UIViewController, UITableViewDataSource, U
         let controller = WeatherViewController()
         
         let requestService = RequestService(session: .shared)
-        let dataBaseService = DataBaseService(persistence: RealmPersistence<RLMWeather>())
+        let dataBaseService = WeatherRealmDataBaseService()
         let networkManager = WeatherNetworkService(requestService: requestService, dataBaseService: dataBaseService)
         
         controller.networkManager = networkManager

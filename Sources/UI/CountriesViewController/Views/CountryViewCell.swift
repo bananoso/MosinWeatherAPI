@@ -45,6 +45,6 @@ class CountryViewCell: TableViewCell {
         self.countryLabel?.text = country?.name
         self.capitalLabel?.text = country?.capital
         self.temperaturelLabel?.text = weather?.celsiusDescription
-        self.dateLabel?.text = weather?.updateDate.formattedTime(style: .short)
+        self.dateLabel?.text = weather?.updateDate?.formattedTime(style: .short)
     }
 }

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         -> Bool
     {
         let requestService = RequestService(session: .shared)
-        let dataBaseService = DataBaseService(persistence: RealmPersistence<RLMCountry>())
+        let dataBaseService = CountryRealmDataBaseService()
         let networkManager = CountriesNetworkService(requestService: requestService, dataBaseService: dataBaseService)
         let countriesViewController = CountriesViewController(model: .init(), networkManager: networkManager)
         

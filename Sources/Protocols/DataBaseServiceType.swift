@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+public protocol DataBaseServiceType {
+    
+    associatedtype StorageType
+    
+    func read(id: ID) -> StorageType?
+    func readAll() -> [StorageType]
+    
+    func write(storage: StorageType)
+}

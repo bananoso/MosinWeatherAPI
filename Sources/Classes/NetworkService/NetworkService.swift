@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Alamofire
-
 public class NetworkService<DataBaseService: DataBaseServiceType> {
     
     // MARK: -

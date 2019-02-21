@@ -29,7 +29,7 @@ public class WeatherViewController: UIViewController, RootViewRepresentable {
         }
     }
     
-    public var networkManager: WeatherNetworkService<DataBaseService<RealmPersistence<RLMWeather>>>?
+    public var networkManager: WeatherNetworkService<WeatherRealmDataBaseService>?
     
     private var isFilled = false
     private let observer = CancellableProperty()
