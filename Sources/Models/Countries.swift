@@ -16,7 +16,6 @@ public class Countries: ObservableObject<Countries.Event> {
     public enum Event {
         case didAppend([Country])
         case didRemove(Country)
-        case didUpdate(Country)
     }
     
     // MARK: -
@@ -54,16 +53,7 @@ public class Countries: ObservableObject<Countries.Event> {
         return value
     }
     
-    // MARK: -
-    // MARK: Array protocol
-    
     public subscript(index: Int) -> Country {
-        // TODO: Cancel observer
-        let country = self.values[index]
-//        country.observer { _ in
-//            self.notify(.didUpdate(country))
-//        }
-        
-        return country
+        return self.values[index]
     }
 }
