@@ -10,46 +10,6 @@ import Foundation
 
 import RealmSwift
 
-//public protocol Modelable: class {
-//    var id: ID { get }
-//}
-//
-//public class Model: Modelable {
-//
-//    // MARK: -
-//    // MARK: Properties
-//
-//    public let id: ID
-//
-//    public var storageID: String {
-//        return "\(self.id)_\(typeString(self).lowercased())"
-//    }
-//
-////    public var storage: StorageType {
-////        return self.persistence.read(id: self.id)
-////    }
-//
-//    // MARK: -
-//    // MARK: Init and Deinit
-//
-//    public required init(id: ID) {
-//        self.id = id
-//
-////        self.configure()
-//    }
-//
-//    public convenience init(_ id: Int) {
-//        self.init(id: ID(id))
-//    }
-//
-//    // MARK: -
-//    // MARK: Open
-//
-////    open func configure() {
-////        self.read()
-////    }
-//}
-
 public class Model<Persistence: Persistable>: Modelable where Persistence.Storage: AnyObject {
 
     // MARK: -
@@ -104,12 +64,10 @@ public class Model<Persistence: Persistable>: Modelable where Persistence.Storag
         )
     }
 
-    // FIXME: Add actions
     public func write() {
         self.update {
             let storage = self.storage
 
-//            self.writeStorage(storage)
             self.persistence.write(storage: storage, action: self.writeStorage)
         }
     }
