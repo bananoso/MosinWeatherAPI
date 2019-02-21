@@ -8,22 +8,7 @@
 
 import Foundation
 
-public protocol CountryStorage: class {
-    
-    var name: String { get set }
-    var capital: String { get set }
-}
-
-public class RLMCountry: RLMModel, CountryStorage {
-    
-    // MARK: -
-    // MARK: Properties
-    
-    @objc dynamic public var name = ""
-    @objc dynamic public var capital = ""
-}
-
-public class Country: ObservableObject<Country.Event> {
+public class Country: ObservableObject<Country.Event>, Modelable {
 
     // MARK: -
     // MARK: Subtypes
@@ -35,7 +20,7 @@ public class Country: ObservableObject<Country.Event> {
     // MARK: -
     // MARK: Properties
 
-    public var id: ID
+    public let id: ID
     public var name: String
     public var capital: String
 
@@ -55,35 +40,3 @@ public class Country: ObservableObject<Country.Event> {
         self.weather = weather
     }
 }
-
-//public protocol CountryType: CountryStorage, Modelable { }
-
-
-//public class Country<Persistence: Persistable>: Model<Persistence>, CountryType where Persistence.Storage: CountryStorage {
-//
-//    // MARK: -
-//    // MARK: Properties
-//
-//    public var name = "" {
-//        didSet { self.write() }
-//    }
-//
-//    public var capital = "" {
-//        didSet { self.write() }
-//    }
-//
-//    // MARK: -
-//    // MARK: Open
-//
-//    open override func readStorage(_ storage: StorageType) {
-//        let persistence = self.persistence
-//
-//        persistence.read(storage.name, to: &self.name)
-//        persistence.read(storage.capital, to: &self.capital)
-//    }
-//
-//    open override func writeStorage(_ storage: StorageType) {
-//        storage.name = self.name
-//        storage.capital = self.capital
-//    }
-//}
