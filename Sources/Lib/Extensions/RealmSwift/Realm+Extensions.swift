@@ -12,11 +12,17 @@ import RealmSwift
 
 public struct WeakBox<Wrapped: AnyObject> {
     
+    // MARK: -
+    // MARK: Properties
+    
     public var isEmpty: Bool {
         return self.wrapped == nil
     }
     
     public private(set) weak var wrapped: Wrapped?
+    
+    // MARK: -
+    // MARK: Init and Deinit
     
     init(_ wrapped: Wrapped?) {
         self.wrapped = wrapped
@@ -36,9 +42,15 @@ extension WeakBox: Equatable {
 
 public extension Realm {
     
+    // MARK: -
+    // MARK: Subtypes
+    
     private struct Key {
         static let realm = "com.realm.thread.key"
     }
+    
+    // MARK: -
+    // MARK: Properties
     
     public static var current: Realm? {
         let key = Key.realm
@@ -49,11 +61,13 @@ public extension Realm {
             .flatMap { $0.wrapped }
             ?? call {
                 (try? Realm()).map(
-//                    side <| { thread.threadDictionary[key] = WeakBox($0) }
                     sideEffect { thread.threadDictionary[key] = WeakBox($0) }
                 )
             }
     }
+    
+    // MARK: -
+    // MARK: Public
     
     public static func clearCurrent() {
         Thread.current.threadDictionary[Key.realm] = nil
