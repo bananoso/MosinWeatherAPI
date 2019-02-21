@@ -12,9 +12,7 @@ import Alamofire
 
 public protocol RequestServiceType {
     
-    func loadData(
-        at url: URLConvertible,
-        completion: @escaping (Result<Data, RequestServiceError>) -> ()
-    )
-        -> NetworkTask
+    typealias DataCompletionHandler = (Result<Data, RequestServiceError>) -> ()
+    
+    func loadData(at url: URLConvertible, completion: @escaping DataCompletionHandler) -> NetworkTask
 }

@@ -32,7 +32,6 @@ public class RequestService: RequestServiceType {
     // MARK: -
     // MARK: Public
     
-    // TODO: Refactoring func
     public func loadData(
         at url: URLConvertible,
         completion: @escaping (Result<Data, RequestServiceError>) -> ()

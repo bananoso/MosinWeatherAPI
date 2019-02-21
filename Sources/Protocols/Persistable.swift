@@ -13,10 +13,11 @@ public protocol Persistable {
     associatedtype Storage
     
     func read(id: ID) -> Storage
-    func readAll() -> [Storage]?
+    func readAll() -> [Storage]
     
     func write(storage: Storage, action: (Storage) -> ())
+    func write(storages: [Storage], action: ([Storage]) -> ())
     
     func read<Value>(_ value: Value, to target: inout Value)
-    func write<Value>(_ value: Value, target: inout Value)
+    func write<Value>(_ value: Value, to target: inout Value)
 }

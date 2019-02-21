@@ -8,11 +8,7 @@
 
 import Foundation
 
-public protocol Modelable: class {
+public protocol Modelable {
     
     var id: ID { get }
-    
-//    func read()
-//    func write()
-//    func update(action: () -> ())
 }
