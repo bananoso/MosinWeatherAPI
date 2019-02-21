@@ -113,3 +113,7 @@ public func sideEffect<Value>(action: @escaping (Value) -> ()) -> (Value) -> Val
 public func call<Value>(action: () -> Value) -> Value {
     return action()
 }
+
+public func decodedJson<ModelJSON: Decodable>(_ data: Data) -> ModelJSON? {
+    return try? JSONDecoder().decode(ModelJSON.self, from: data)
+}
